@@ -23,6 +23,7 @@ def mnist_iid(dataset, num_users):
     return dict_users
 
 
+'''
 def mnist_noniid(dataset, num_users):
     """
     Sample non-I.I.D client data from MNIST dataset
@@ -50,7 +51,26 @@ def mnist_noniid(dataset, num_users):
             dict_users[i] = np.concatenate(
                 (dict_users[i], idxs[rand*num_imgs:(rand+1)*num_imgs]), axis=0)
     return dict_users
-
+'''
+#mnistが二種類の数字のみのデータを持つように割り振る関数に上書きしちゃう
+def mnist_noniid(dataset, num_users):
+    dict_users = {i: set() for i in range(num_users)}
+    #二種類配るから*2らしい
+    num_shards = num_users * 2
+    num_items = int(len(dataset) / num_shards)
+    idx_shard = [i for i in range(num_shards)]
+    #データセットのインデックスを0~9順にソートする
+    labels = np.array(dataset.targets)
+    idxs = np.argsort(labels)
+    #各クライアントにランダムに二種類の数字を割り振る
+    for i in range(num_users):
+        rand_set = np.random.choice(idx_shard, 2, replace=False)
+        idx_shard = list(set(idx_shard) - set(rand_set))
+        #クライアントに追加していく
+        for rand in rand_set:
+            shard_idxs = idxs[rand*num_items : (rand+1)*num_items]
+            dict_users[i].update(shard_idxs)
+    return dict_users
 
 def mnist_noniid_unequal(dataset, num_users):
     """

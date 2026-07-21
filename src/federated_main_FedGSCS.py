@@ -4,6 +4,7 @@
 
 
 import os
+os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 import copy
 import time
 import pickle
@@ -82,7 +83,8 @@ if __name__ == '__main__':
 
         global_model.train()
         #今回のラウンドに参加するユーザーをランダムに選別
-        m = max(int(args.frac * args.num_users), 1)
+        #m = max(int(args.frac * args.num_users), 1)
+        m = max(int(0.2 * args.num_users), 1)
         idxs_users = np.random.choice(range(args.num_users), m, replace=False)
 
         #選ばれたユーザーごとに、データを渡して手元でモデルを訓練させる。
@@ -118,19 +120,41 @@ if __name__ == '__main__':
             cos_scores.append(sim.item())
         
         #類似度が高い上位q個の端末の厳選
-        #何個にしたらいいだろう とりあえず上位50%にするよ
+        #何個にしたらいいだろう
         q=max(int(0.5*m),1)
         top_q_indices = torch.topk(torch.tensor(cos_scores), k=q).indices.tolist()
 
         #合格した端末のデータだけを抽出
-        selected_weights = [local_weights[i] for i in top_q_indices]
-        selected_losses = [local_losses[i] for i in top_q_indices]
-
+        #selected_weights = [local_weights[i] for i in top_q_indices]
+        #selected_losses = [local_losses[i] for i in top_q_indices]
+        '''
         #厳選された優秀の重みだけで合体
         global_weights = average_weights(selected_weights)
         global_model.load_state_dict(global_weights)
+        '''
+        #加重平均
+        selected_scores = torch.tensor([cos_scores[i] for i in top_q_indices])
+        selected_scores = torch.clamp(selected_scores, min=0.0)
+        weights_norm = torch.softmax(selected_scores, dim=0)
+        #重みの正規化
+        score_sum = torch.sum(selected_scores)
+        if score_sum > 0:
+            weights_norm = selected_scores / score_sum
+        else:
+            weights_norm = torch.ones(q) / q
+        # 新しいグローバル重みの計算（加重統合）
+        new_global_weights = {}
+        for key in global_weights.keys():
+            new_global_weights[key] = torch.zeros_like(global_weights[key], dtype=torch.float32)
+            for idx_idx, i in enumerate(top_q_indices):
+                # 選ばれたクライアントの重みをスコア倍して足し合わせる（ほえー）
+                weight = weights_norm[idx_idx].item()
+                new_global_weights[key] += weight * local_weights[i][key].to(device)
 
+        global_weights = new_global_weights
+        global_model.load_state_dict(global_weights)
         # ロス計算も選ばれた端末の平均にする
+        selected_losses = [local_losses[i] for i in top_q_indices]
         loss_avg = sum(selected_losses) / len(selected_losses)
         train_loss.append(loss_avg)
         """
