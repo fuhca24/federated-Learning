@@ -96,7 +96,7 @@ if __name__ == '__main__':
 
         loss_avg = sum(local_losses) / len(local_losses)
         train_loss.append(loss_avg)
-
+        '''
         # Calculate avg training accuracy over all users at every epoch
         list_acc, list_loss = [], []
         global_model.eval()
@@ -107,7 +107,10 @@ if __name__ == '__main__':
             list_acc.append(acc)
             list_loss.append(loss)
         train_accuracy.append(sum(list_acc)/len(list_acc))
-
+        '''
+        global_model.eval()
+        t_acc, t_loss = test_inference(args, global_model, test_dataset)
+        train_accuracy.append(t_acc)
         # print global training loss after every 'i' rounds
         if (epoch+1) % print_every == 0:
             print(f' \nAvg Training Stats after {epoch+1} global rounds:')
@@ -122,7 +125,9 @@ if __name__ == '__main__':
     print("|---- Test Accuracy: {:.2f}%".format(100*test_acc))
 
     # Saving the objects train_loss and train_accuracy:
-    file_name = './save/objects/{}_{}_{}_C[{}]_iid[{}]_E[{}]_B[{}].pkl'.\
+    #file_name = './save/objects/{}_{}_{}_C[{}]_iid[{}]_E[{}]_B[{}].pkl'.\
+    os.makedirs('./save/objects', exist_ok=True)
+    file_name = './save/objects/FedAvg_{}_{}_{}_C[{}]_iid[{}]_E[{}]_B[{}].pkl'.\
         format(args.dataset, args.model, args.epochs, args.frac, args.iid,
                args.local_ep, args.local_bs)
 

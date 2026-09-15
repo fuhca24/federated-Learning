@@ -36,7 +36,16 @@ if __name__ == '__main__':
 
     # load dataset and user groups（どのユーザーがどのデータを持つかの取得）
     train_dataset, test_dataset, user_groups = get_dataset(args)
-
+    # --- ここから検証コード ---
+    labels_check = np.array(train_dataset.targets)
+    print("\n" + "="*40)
+    for u in [0, 1, args.num_users - 1]:
+        u_labels = labels_check[list(user_groups[u])]
+        unique_labels, counts = np.unique(u_labels, return_counts=True)
+        print(f"User {u} の所持クラス: {dict(zip(unique_labels, counts))}")
+    print("="*40 + "\n")
+    # --- ここまで ---
+    
     # BUILD MODEL（モデルの構築）
     # 指定された設定（args.modelとargs.dataset）に応じて、適切なニューラルネットワークを生成する
 
@@ -121,9 +130,14 @@ if __name__ == '__main__':
         
         #類似度が高い上位q個の端末の厳選
         #何個にしたらいいだろう
-        q=max(int(0.5*m),1)
+        q=max(int(0.3*m),1)
         top_q_indices = torch.topk(torch.tensor(cos_scores), k=q).indices.tolist()
-
+        selected_real_users = [idxs_users[i] for i in top_q_indices]
+        # Group AのユーザーID境界
+        num_users_a = int(0.2 * args.num_users)
+        group_a_selected = [u for u in selected_real_users if u < num_users_a]
+        print(f"Round {epoch+1}: 採択端末={selected_real_users} (うちGroup A[0,1]: {len(group_a_selected)}台)") 
+        # ------------------
         #合格した端末のデータだけを抽出
         #selected_weights = [local_weights[i] for i in top_q_indices]
         #selected_losses = [local_losses[i] for i in top_q_indices]
@@ -135,7 +149,7 @@ if __name__ == '__main__':
         #加重平均
         selected_scores = torch.tensor([cos_scores[i] for i in top_q_indices])
         selected_scores = torch.clamp(selected_scores, min=0.0)
-        weights_norm = torch.softmax(selected_scores, dim=0)
+        #weights_norm = torch.softmax(selected_scores, dim=0)
         #重みの正規化
         score_sum = torch.sum(selected_scores)
         if score_sum > 0:
@@ -169,15 +183,18 @@ if __name__ == '__main__':
         """
         # Calculate avg training accuracy over all users at every epoch
         # すべてのユーザーにおける平均トレーニング精度を計算
-        list_acc, list_loss = [], []
+        #list_acc, list_loss = [], []
+        #global_model.eval()#評価モードに切り替え
+        #for idx in range(args.num_users):
+        #    local_model = LocalUpdate(args=args, dataset=train_dataset,
+        #                              idxs=user_groups[idx], logger=logger)
+        #    acc, loss = local_model.inference(model=global_model)
+        #    list_acc.append(acc)
+        #    list_loss.append(loss)
+        #train_accuracy.append(sum(list_acc)/len(list_acc))
         global_model.eval()#評価モードに切り替え
-        for idx in range(args.num_users):
-            local_model = LocalUpdate(args=args, dataset=train_dataset,
-                                      idxs=user_groups[idx], logger=logger)
-            acc, loss = local_model.inference(model=global_model)
-            list_acc.append(acc)
-            list_loss.append(loss)
-        train_accuracy.append(sum(list_acc)/len(list_acc))
+        t_acc, t_loss = test_inference(args, global_model, test_dataset)#テストデータで評価するようにする（ほんとに？）
+        train_accuracy.append(t_acc)
 
         # print global training loss after every 'i' rounds（指定されたラウンドごとに進捗をプリント）
         if (epoch+1) % print_every == 0:
@@ -194,7 +211,9 @@ if __name__ == '__main__':
 
     # Saving the objects train_loss and train_accuracy:
     # 学習結果（損失と精度の推移）をローカルに保存
-    file_name = './save/objects/{}_{}_{}_C[{}]_iid[{}]_E[{}]_B[{}].pkl'.\
+    #file_name = './save/objects/{}_{}_{}_C[{}]_iid[{}]_E[{}]_B[{}].pkl'.\
+    os.makedirs('./save/objects',exist_ok=True)
+    file_name = './save/objects/FedGSCS_{}_{}_{}_C[{}]_iid[{}]_E[{}]_B[{}].pkl'.\
         format(args.dataset, args.model, args.epochs, args.frac, args.iid,
                args.local_ep, args.local_bs)
 
