@@ -29,6 +29,10 @@ if __name__ == '__main__':
     # コマンドライン引数の読み込み
     args = args_parser()
     exp_details(args)
+    #シード値の固定
+    args = args_parser()
+    np.random.seed(args.seed)
+    torch.manual_seed(args.seed)
     # GPUの設定
     if hasattr(args, 'gpu_id') and args.gpu_id is not None:
         torch.cuda.set_device(args.gpu_id)
@@ -76,7 +80,9 @@ if __name__ == '__main__':
     # ここで作られるglobal_modelが、サーバー側で管理される「全体の中心となる共有モデル」になる
     # copy weights（初期状態のグローバルモデルの重みを取得）
     global_weights = global_model.state_dict()
-
+    grad_keys = [k for k in global_weights.keys()
+                 if torch.is_floating_point(global_weights[k])]
+    q_frac = 0.3
     # Training
     train_loss, train_accuracy = [], []
     val_acc_list, net_list = [], []
@@ -88,12 +94,13 @@ if __name__ == '__main__':
     for epoch in tqdm(range(args.epochs)):
         local_weights, local_losses = [], []
         local_gradients = []#各端末の勾配を保存するリスト
+        local_sizes = []
         print(f'\n | Global Training Round : {epoch+1} |\n')
 
         global_model.train()
         #今回のラウンドに参加するユーザーをランダムに選別
-        #m = max(int(args.frac * args.num_users), 1)
-        m = max(int(0.2 * args.num_users), 1)
+        m = max(int(args.frac * args.num_users), 1)
+        #m = max(int(0.2 * args.num_users), 1)
         idxs_users = np.random.choice(range(args.num_users), m, replace=False)
 
         #選ばれたユーザーごとに、データを渡して手元でモデルを訓練させる。
@@ -116,6 +123,7 @@ if __name__ == '__main__':
             local_weights.append(copy.deepcopy(w))
             local_losses.append(copy.deepcopy(loss))
             local_gradients.append(grad_vector)#勾配ベクトルをリストに保存
+            local_sizes.append(len(user_groups[idx]))
 
         #平均勾配の計算
         all_grads=torch.stack(local_gradients)
@@ -130,7 +138,7 @@ if __name__ == '__main__':
         
         #類似度が高い上位q個の端末の厳選
         #何個にしたらいいだろう
-        q=max(int(0.3*m),1)
+        q=max(int(q_frac*m),1)
         top_q_indices = torch.topk(torch.tensor(cos_scores), k=q).indices.tolist()
         selected_real_users = [idxs_users[i] for i in top_q_indices]
         # Group AのユーザーID境界
@@ -147,24 +155,21 @@ if __name__ == '__main__':
         global_model.load_state_dict(global_weights)
         '''
         #加重平均
-        selected_scores = torch.tensor([cos_scores[i] for i in top_q_indices])
-        selected_scores = torch.clamp(selected_scores, min=0.0)
-        #weights_norm = torch.softmax(selected_scores, dim=0)
-        #重みの正規化
-        score_sum = torch.sum(selected_scores)
-        if score_sum > 0:
-            weights_norm = selected_scores / score_sum
-        else:
-            weights_norm = torch.ones(q) / q
-        # 新しいグローバル重みの計算（加重統合）
+       # [修正5] ステップ5：合格した端末だけを「データ量に応じた加重平均」で統合する
+        # （コサイン類似度による重み付けは論文の手順にないので削除）
+        selected_sizes = torch.tensor([local_sizes[i] for i in top_q_indices],
+                                      dtype=torch.float32)
+        weights_norm = selected_sizes / torch.sum(selected_sizes)
         new_global_weights = {}
         for key in global_weights.keys():
+            # [修正6] 整数のバッファ（num_batches_tracked など）は平均せず、そのままコピー
+            if not torch.is_floating_point(global_weights[key]):
+                new_global_weights[key] = local_weights[top_q_indices[0]][key].clone()
+                continue
             new_global_weights[key] = torch.zeros_like(global_weights[key], dtype=torch.float32)
             for idx_idx, i in enumerate(top_q_indices):
-                # 選ばれたクライアントの重みをスコア倍して足し合わせる（ほえー）
                 weight = weights_norm[idx_idx].item()
                 new_global_weights[key] += weight * local_weights[i][key].to(device)
-
         global_weights = new_global_weights
         global_model.load_state_dict(global_weights)
         # ロス計算も選ばれた端末の平均にする

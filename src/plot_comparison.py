@@ -31,7 +31,7 @@ if __name__ == '__main__':
     plt.plot(epochs, [a * 100 for a in fedgscs_acc], 's--', label='FedGSCS', color='red')
     plt.title(f'Accuracy vs Communication Rounds ({args.dataset.upper()})')
     plt.xlabel('Communication Rounds')
-    plt.ylabel('Train Accuracy (%)')
+    plt.ylabel('Test Accuracy (%)')
     plt.grid(True, linestyle=':')
     plt.legend()
 

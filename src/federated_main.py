@@ -29,6 +29,10 @@ if __name__ == '__main__':
     args = args_parser()
     exp_details(args)
 
+    #シード値の固定
+    args = args_parser()
+    np.random.seed(args.seed)
+    torch.manual_seed(args.seed)
     if hasattr(args, 'gpu_id') and args.gpu_id is not None:
         torch.cuda.set_device(args.gpu_id)
     device = 'cuda' if args.gpu else 'cpu'
