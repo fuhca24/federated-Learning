@@ -196,6 +196,7 @@ def cifar_noniid(dataset, num_users):
     :param num_users:
     :return:
     """
+    """
     num_shards, num_imgs = 200, 250
     idx_shard = [i for i in range(num_shards)]
     dict_users = {i: np.array([]) for i in range(num_users)}
@@ -216,7 +217,8 @@ def cifar_noniid(dataset, num_users):
             dict_users[i] = np.concatenate(
                 (dict_users[i], idxs[rand*num_imgs:(rand+1)*num_imgs]), axis=0)
     return dict_users
-
+    """
+    return mnist_noniid(dataset, num_users)
 
 if __name__ == '__main__':
     dataset_train = datasets.MNIST('./data/mnist/', train=True, download=True,

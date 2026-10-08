@@ -218,9 +218,9 @@ if __name__ == '__main__':
     # 学習結果（損失と精度の推移）をローカルに保存
     #file_name = './save/objects/{}_{}_{}_C[{}]_iid[{}]_E[{}]_B[{}].pkl'.\
     os.makedirs('./save/objects',exist_ok=True)
-    file_name = './save/objects/FedGSCS_{}_{}_{}_C[{}]_iid[{}]_E[{}]_B[{}].pkl'.\
+    file_name = './save/objects/FedGSCS_{}_{}_{}_C[{}]_iid[{}]_E[{}]_B[{}]_seed[{}].pkl'.\
         format(args.dataset, args.model, args.epochs, args.frac, args.iid,
-               args.local_ep, args.local_bs)
+           args.local_ep, args.local_bs, args.seed)
 
     with open(file_name, 'wb') as f:
         pickle.dump([train_loss, train_accuracy], f)
