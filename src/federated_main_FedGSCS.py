@@ -84,7 +84,7 @@ if __name__ == '__main__':
     grad_keys = [k for k in global_weights.keys()
                  if torch.is_floating_point(global_weights[k])]
     #cifar10のときは0.8にしてみる
-    q_frac = 0.8
+    q_frac = 0.3
     # Training
     train_loss, train_accuracy = [], []
     #ラウンドごとのテスト損失を記録しておくリスト

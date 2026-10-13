@@ -496,7 +496,7 @@ CNNMnist(
 | Global Round : 0 | Local Epoch : 3 | [0/480 (0%)]	Loss: 2.246766
 | Global Round : 0 | Local Epoch : 3 | [100/480 (21%)]	Loss: 1.417603C:\Users\りょうけん\Federated-Learning-PyTorch\src\update.py:23: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
   return torch.tensor(image), torch.tensor(label)
-  2%|2         | 1/50 [00:23<19:28, 23.84s/it]
+  2%|2         | 1/50 [00:20<16:25, 20.11s/it]
 | Global Round : 0 | Local Epoch : 3 | [200/480 (42%)]	Loss: 1.780289
 | Global Round : 0 | Local Epoch : 3 | [300/480 (62%)]	Loss: 1.669641
 | Global Round : 0 | Local Epoch : 3 | [400/480 (83%)]	Loss: 1.197372
@@ -967,7 +967,7 @@ Round 1: 採択端末=[63, 90, 61] (うちGroup A[0,1]: 0台)
 | Global Round : 1 | Local Epoch : 6 | [0/480 (0%)]	Loss: 1.105509
 | Global Round : 1 | Local Epoch : 6 | [100/480 (21%)]	Loss: 1.053119
 | Global Round : 1 | Local Epoch : 6 | [200/480 (42%)]	Loss: 0.616566
-| Global Round : 1 | Local Epoch : 6 | [300/480 (62%)]	Loss: 0.409032  4%|4         | 2/50 [00:46<18:23, 22.99s/it]
+| Global Round : 1 | Local Epoch : 6 | [300/480 (62%)]	Loss: 0.409032  4%|4         | 2/50 [00:39<15:57, 19.95s/it]
 | Global Round : 1 | Local Epoch : 6 | [400/480 (83%)]	Loss: 0.027136
 | Global Round : 1 | Local Epoch : 7 | [0/480 (0%)]	Loss: 0.206036
 | Global Round : 1 | Local Epoch : 7 | [100/480 (21%)]	Loss: 0.172218
@@ -1441,7 +1441,7 @@ Train Accuracy: 93.04%
 | Global Round : 2 | Local Epoch : 9 | [0/480 (0%)]	Loss: 0.352148
 | Global Round : 2 | Local Epoch : 9 | [100/480 (21%)]	Loss: 0.373649
 | Global Round : 2 | Local Epoch : 9 | [200/480 (42%)]	Loss: 0.594237
-| Global Round : 2 | Local Epoch : 9 | [300/480 (62%)]	Loss: 0.572464  6%|6         | 3/50 [01:10<18:27, 23.56s/it]
+| Global Round : 2 | Local Epoch : 9 | [300/480 (62%)]	Loss: 0.572464  6%|6         | 3/50 [00:59<15:36, 19.93s/it]
 | Global Round : 2 | Local Epoch : 9 | [400/480 (83%)]	Loss: 0.497137
 | Global Round : 2 | Local Epoch : 0 | [0/480 (0%)]	Loss: 0.449337
 | Global Round : 2 | Local Epoch : 0 | [100/480 (21%)]	Loss: 0.546527
@@ -2029,7 +2029,7 @@ Round 3: 採択端末=[73, 1, 66] (うちGroup A[0,1]: 1台)
 | Global Round : 3 | Local Epoch : 5 | [400/480 (83%)]	Loss: 0.132399
 | Global Round : 3 | Local Epoch : 6 | [0/480 (0%)]	Loss: 0.735985
 | Global Round : 3 | Local Epoch : 6 | [100/480 (21%)]	Loss: 0.500641
-| Global Round : 3 | Local Epoch : 6 | [200/480 (42%)]	Loss: 0.403297  8%|8         | 4/50 [01:33<17:45, 23.17s/it]
+| Global Round : 3 | Local Epoch : 6 | [200/480 (42%)]	Loss: 0.403297  8%|8         | 4/50 [01:19<15:15, 19.90s/it]
 | Global Round : 3 | Local Epoch : 6 | [300/480 (62%)]	Loss: 0.354775
 | Global Round : 3 | Local Epoch : 6 | [400/480 (83%)]	Loss: 0.343973
 | Global Round : 3 | Local Epoch : 7 | [0/480 (0%)]	Loss: 0.097917
@@ -2503,7 +2503,7 @@ Train Accuracy: 95.34%
 | Global Round : 4 | Local Epoch : 8 | [400/480 (83%)]	Loss: 0.206794
 | Global Round : 4 | Local Epoch : 9 | [0/480 (0%)]	Loss: 0.043861
 | Global Round : 4 | Local Epoch : 9 | [100/480 (21%)]	Loss: 0.014972
-| Global Round : 4 | Local Epoch : 9 | [200/480 (42%)]	Loss: 0.458703 10%|#         | 5/50 [01:55<17:10, 22.90s/it]
+| Global Round : 4 | Local Epoch : 9 | [200/480 (42%)]	Loss: 0.458703 10%|#         | 5/50 [01:39<14:54, 19.89s/it]
 | Global Round : 4 | Local Epoch : 9 | [300/480 (62%)]	Loss: 0.040369
 | Global Round : 4 | Local Epoch : 9 | [400/480 (83%)]	Loss: 0.179035
 | Global Round : 4 | Local Epoch : 0 | [0/480 (0%)]	Loss: 0.445683
@@ -2974,7 +2974,7 @@ Round 5: 採択端末=[37, 86, 63] (うちGroup A[0,1]: 0台)
 | Global Round : 5 | Local Epoch : 2 | [100/480 (21%)]	Loss: 0.234303
 | Global Round : 5 | Local Epoch : 2 | [200/480 (42%)]	Loss: 0.079115
 | Global Round : 5 | Local Epoch : 2 | [300/480 (62%)]	Loss: 0.037899
-| Global Round : 5 | Local Epoch : 2 | [400/480 (83%)]	Loss: 0.348062 12%|#2        | 6/50 [02:18<16:55, 23.08s/it]
+| Global Round : 5 | Local Epoch : 2 | [400/480 (83%)]	Loss: 0.348062 12%|#2        | 6/50 [01:59<14:36, 19.93s/it]
 | Global Round : 5 | Local Epoch : 3 | [0/480 (0%)]	Loss: 0.153712
 | Global Round : 5 | Local Epoch : 3 | [100/480 (21%)]	Loss: 0.270576
 | Global Round : 5 | Local Epoch : 3 | [200/480 (42%)]	Loss: 0.184920
@@ -3565,7 +3565,7 @@ Train Accuracy: 96.25%
 | Global Round : 6 | Local Epoch : 8 | [300/480 (62%)]	Loss: 0.319143
 | Global Round : 6 | Local Epoch : 8 | [400/480 (83%)]	Loss: 0.323772
 | Global Round : 6 | Local Epoch : 9 | [0/480 (0%)]	Loss: 0.226699
-| Global Round : 6 | Local Epoch : 9 | [100/480 (21%)]	Loss: 0.267490 14%|#4        | 7/50 [02:41<16:27, 22.96s/it]
+| Global Round : 6 | Local Epoch : 9 | [100/480 (21%)]	Loss: 0.267490 14%|#4        | 7/50 [02:19<14:18, 19.98s/it]
 | Global Round : 6 | Local Epoch : 9 | [200/480 (42%)]	Loss: 0.002910
 | Global Round : 6 | Local Epoch : 9 | [300/480 (62%)]	Loss: 0.140275
 | Global Round : 6 | Local Epoch : 9 | [400/480 (83%)]	Loss: 0.058115
@@ -4036,7 +4036,7 @@ Round 7: 採択端末=[33, 26, 70] (うちGroup A[0,1]: 0台)
 | Global Round : 7 | Local Epoch : 2 | [0/480 (0%)]	Loss: 0.125352
 | Global Round : 7 | Local Epoch : 2 | [100/480 (21%)]	Loss: 0.037859
 | Global Round : 7 | Local Epoch : 2 | [200/480 (42%)]	Loss: 0.028525
-| Global Round : 7 | Local Epoch : 2 | [300/480 (62%)]	Loss: 0.644555 16%|#6        | 8/50 [03:04<15:56, 22.78s/it]
+| Global Round : 7 | Local Epoch : 2 | [300/480 (62%)]	Loss: 0.644555 16%|#6        | 8/50 [02:39<13:58, 19.96s/it]
 | Global Round : 7 | Local Epoch : 2 | [400/480 (83%)]	Loss: 0.521464
 | Global Round : 7 | Local Epoch : 3 | [0/480 (0%)]	Loss: 0.256175
 | Global Round : 7 | Local Epoch : 3 | [100/480 (21%)]	Loss: 0.048216
@@ -4510,7 +4510,7 @@ Train Accuracy: 96.75%
 | Global Round : 8 | Local Epoch : 5 | [0/480 (0%)]	Loss: 0.151625
 | Global Round : 8 | Local Epoch : 5 | [100/480 (21%)]	Loss: 0.075587
 | Global Round : 8 | Local Epoch : 5 | [200/480 (42%)]	Loss: 0.140196
-| Global Round : 8 | Local Epoch : 5 | [300/480 (62%)]	Loss: 0.027449 18%|#8        | 9/50 [03:25<15:16, 22.35s/it]
+| Global Round : 8 | Local Epoch : 5 | [300/480 (62%)]	Loss: 0.027449 18%|#8        | 9/50 [02:59<13:37, 19.95s/it]
 | Global Round : 8 | Local Epoch : 5 | [400/480 (83%)]	Loss: 0.021342
 | Global Round : 8 | Local Epoch : 6 | [0/480 (0%)]	Loss: 0.043166
 | Global Round : 8 | Local Epoch : 6 | [100/480 (21%)]	Loss: 0.108073
@@ -4981,7 +4981,7 @@ Round 9: 採択端末=[96, 52, 95] (うちGroup A[0,1]: 0台)
 | Global Round : 9 | Local Epoch : 8 | [200/480 (42%)]	Loss: 0.299680
 | Global Round : 9 | Local Epoch : 8 | [300/480 (62%)]	Loss: 0.386283
 | Global Round : 9 | Local Epoch : 8 | [400/480 (83%)]	Loss: 0.034188
-| Global Round : 9 | Local Epoch : 9 | [0/480 (0%)]	Loss: 0.020588 20%|##        | 10/50 [03:45<14:31, 21.79s/it]
+| Global Round : 9 | Local Epoch : 9 | [0/480 (0%)]	Loss: 0.020588 20%|##        | 10/50 [03:19<13:18, 19.96s/it]
 | Global Round : 9 | Local Epoch : 9 | [100/480 (21%)]	Loss: 0.042244
 | Global Round : 9 | Local Epoch : 9 | [200/480 (42%)]	Loss: 0.493246
 | Global Round : 9 | Local Epoch : 9 | [300/480 (62%)]	Loss: 0.011406
@@ -5564,7 +5564,7 @@ Train Accuracy: 97.04%
 | Global Round : 10 | Local Epoch : 3 | [100/480 (21%)]	Loss: 0.032100
 | Global Round : 10 | Local Epoch : 3 | [200/480 (42%)]	Loss: 0.277549
 | Global Round : 10 | Local Epoch : 3 | [300/480 (62%)]	Loss: 0.062392
-| Global Round : 10 | Local Epoch : 3 | [400/480 (83%)]	Loss: 0.274190 22%|##2       | 11/50 [04:06<13:52, 21.33s/it]
+| Global Round : 10 | Local Epoch : 3 | [400/480 (83%)]	Loss: 0.274190 22%|##2       | 11/50 [03:39<12:59, 19.98s/it]
 | Global Round : 10 | Local Epoch : 4 | [0/480 (0%)]	Loss: 0.021680
 | Global Round : 10 | Local Epoch : 4 | [100/480 (21%)]	Loss: 0.325860
 | Global Round : 10 | Local Epoch : 4 | [200/480 (42%)]	Loss: 0.155140
@@ -6027,7 +6027,7 @@ Round 11: 採択端末=[39, 14, 40] (うちGroup A[0,1]: 1台)
 | Global Round : 11 | Local Epoch : 5 | [0/480 (0%)]	Loss: 0.726881
 | Global Round : 11 | Local Epoch : 5 | [100/480 (21%)]	Loss: 0.040919
 | Global Round : 11 | Local Epoch : 5 | [200/480 (42%)]	Loss: 0.047142
-| Global Round : 11 | Local Epoch : 5 | [300/480 (62%)]	Loss: 0.242764 24%|##4       | 12/50 [04:26<13:15, 20.95s/it]
+| Global Round : 11 | Local Epoch : 5 | [300/480 (62%)]	Loss: 0.242764 24%|##4       | 12/50 [03:59<12:39, 19.98s/it]
 | Global Round : 11 | Local Epoch : 5 | [400/480 (83%)]	Loss: 0.112037
 | Global Round : 11 | Local Epoch : 6 | [0/480 (0%)]	Loss: 0.257008
 | Global Round : 11 | Local Epoch : 6 | [100/480 (21%)]	Loss: 0.129248
@@ -6608,7 +6608,7 @@ Train Accuracy: 97.05%
 | Global Round : 12 | Local Epoch : 9 | [200/480 (42%)]	Loss: 0.190370
 | Global Round : 12 | Local Epoch : 9 | [300/480 (62%)]	Loss: 0.248100
 | Global Round : 12 | Local Epoch : 9 | [400/480 (83%)]	Loss: 0.010284
-Round 13: 採択端末=[97, 35, 62] (うちGroup A[0,1]: 0台) 26%|##6       | 13/50 [04:46<12:46, 20.71s/it]
+Round 13: 採択端末=[97, 35, 62] (うちGroup A[0,1]: 0台) 26%|##6       | 13/50 [04:19<12:22, 20.08s/it]
 
  | Global Training Round : 14 |
 
@@ -7071,7 +7071,7 @@ Round 13: 採択端末=[97, 35, 62] (うちGroup A[0,1]: 0台) 26%|##6       | 13/50 [
 | Global Round : 13 | Local Epoch : 1 | [100/480 (21%)]	Loss: 0.696906
 | Global Round : 13 | Local Epoch : 1 | [200/480 (42%)]	Loss: 0.399387
 | Global Round : 13 | Local Epoch : 1 | [300/480 (62%)]	Loss: 0.228796
-| Global Round : 13 | Local Epoch : 1 | [400/480 (83%)]	Loss: 0.072794 28%|##8       | 14/50 [05:06<12:20, 20.57s/it]
+| Global Round : 13 | Local Epoch : 1 | [400/480 (83%)]	Loss: 0.072794 28%|##8       | 14/50 [04:40<12:04, 20.12s/it]
 | Global Round : 13 | Local Epoch : 2 | [0/480 (0%)]	Loss: 0.722715
 | Global Round : 13 | Local Epoch : 2 | [100/480 (21%)]	Loss: 0.033040
 | Global Round : 13 | Local Epoch : 2 | [200/480 (42%)]	Loss: 0.387876
@@ -7537,7 +7537,7 @@ Train Accuracy: 97.45%
 | Global Round : 14 | Local Epoch : 2 | [300/480 (62%)]	Loss: 0.532869
 | Global Round : 14 | Local Epoch : 2 | [400/480 (83%)]	Loss: 0.282328
 | Global Round : 14 | Local Epoch : 3 | [0/480 (0%)]	Loss: 0.297883
-| Global Round : 14 | Local Epoch : 3 | [100/480 (21%)]	Loss: 0.501370 30%|###       | 15/50 [05:26<11:56, 20.46s/it]
+| Global Round : 14 | Local Epoch : 3 | [100/480 (21%)]	Loss: 0.501370 30%|###       | 15/50 [04:59<11:42, 20.07s/it]
 | Global Round : 14 | Local Epoch : 3 | [200/480 (42%)]	Loss: 1.020900
 | Global Round : 14 | Local Epoch : 3 | [300/480 (62%)]	Loss: 0.043567
 | Global Round : 14 | Local Epoch : 3 | [400/480 (83%)]	Loss: 0.093460
@@ -8115,7 +8115,7 @@ Round 15: 採択端末=[57, 94, 96] (うちGroup A[0,1]: 0台)
 | Global Round : 15 | Local Epoch : 7 | [200/480 (42%)]	Loss: 0.006974
 | Global Round : 15 | Local Epoch : 7 | [300/480 (62%)]	Loss: 0.029226
 | Global Round : 15 | Local Epoch : 7 | [400/480 (83%)]	Loss: 0.276195
-| Global Round : 15 | Local Epoch : 8 | [0/480 (0%)]	Loss: 0.309298 32%|###2      | 16/50 [05:46<11:31, 20.34s/it]
+| Global Round : 15 | Local Epoch : 8 | [0/480 (0%)]	Loss: 0.309298 32%|###2      | 16/50 [05:19<11:21, 20.05s/it]
 | Global Round : 15 | Local Epoch : 8 | [100/480 (21%)]	Loss: 0.011470
 | Global Round : 15 | Local Epoch : 8 | [200/480 (42%)]	Loss: 0.085268
 | Global Round : 15 | Local Epoch : 8 | [300/480 (62%)]	Loss: 0.089439
@@ -8581,7 +8581,7 @@ Train Accuracy: 97.59%
 | Global Round : 16 | Local Epoch : 8 | [400/480 (83%)]	Loss: 0.000694
 | Global Round : 16 | Local Epoch : 9 | [0/480 (0%)]	Loss: 0.116154
 | Global Round : 16 | Local Epoch : 9 | [100/480 (21%)]	Loss: 0.008168
-| Global Round : 16 | Local Epoch : 9 | [200/480 (42%)]	Loss: 0.036635 34%|###4      | 17/50 [06:07<11:11, 20.34s/it]
+| Global Round : 16 | Local Epoch : 9 | [200/480 (42%)]	Loss: 0.036635 34%|###4      | 17/50 [05:39<11:00, 20.02s/it]
 | Global Round : 16 | Local Epoch : 9 | [300/480 (62%)]	Loss: 0.111011
 | Global Round : 16 | Local Epoch : 9 | [400/480 (83%)]	Loss: 0.182709
 | Global Round : 16 | Local Epoch : 0 | [0/480 (0%)]	Loss: 0.013657
@@ -9044,7 +9044,7 @@ Round 17: 採択端末=[91, 25, 89] (うちGroup A[0,1]: 0台)
 | Global Round : 17 | Local Epoch : 0 | [300/480 (62%)]	Loss: 0.182547
 | Global Round : 17 | Local Epoch : 0 | [400/480 (83%)]	Loss: 0.318060
 | Global Round : 17 | Local Epoch : 1 | [0/480 (0%)]	Loss: 0.114183
-| Global Round : 17 | Local Epoch : 1 | [100/480 (21%)]	Loss: 0.254690 36%|###6      | 18/50 [06:27<10:50, 20.34s/it]
+| Global Round : 17 | Local Epoch : 1 | [100/480 (21%)]	Loss: 0.254690 36%|###6      | 18/50 [05:59<10:39, 19.98s/it]
 | Global Round : 17 | Local Epoch : 1 | [200/480 (42%)]	Loss: 0.004537
 | Global Round : 17 | Local Epoch : 1 | [300/480 (62%)]	Loss: 0.007807
 | Global Round : 17 | Local Epoch : 1 | [400/480 (83%)]	Loss: 0.076259
@@ -9625,7 +9625,7 @@ Train Accuracy: 97.52%
 | Global Round : 18 | Local Epoch : 5 | [0/480 (0%)]	Loss: 0.037203
 | Global Round : 18 | Local Epoch : 5 | [100/480 (21%)]	Loss: 0.011119
 | Global Round : 18 | Local Epoch : 5 | [200/480 (42%)]	Loss: 0.367377
-| Global Round : 18 | Local Epoch : 5 | [300/480 (62%)]	Loss: 0.013497 38%|###8      | 19/50 [06:47<10:28, 20.27s/it]
+| Global Round : 18 | Local Epoch : 5 | [300/480 (62%)]	Loss: 0.013497 38%|###8      | 19/50 [06:19<10:20, 20.03s/it]
 | Global Round : 18 | Local Epoch : 5 | [400/480 (83%)]	Loss: 0.024312
 | Global Round : 18 | Local Epoch : 6 | [0/480 (0%)]	Loss: 0.082755
 | Global Round : 18 | Local Epoch : 6 | [100/480 (21%)]	Loss: 0.200846
@@ -10088,7 +10088,7 @@ Round 19: 採択端末=[67, 86, 28] (うちGroup A[0,1]: 0台)
 | Global Round : 19 | Local Epoch : 6 | [400/480 (83%)]	Loss: 0.000994
 | Global Round : 19 | Local Epoch : 7 | [0/480 (0%)]	Loss: 0.254329
 | Global Round : 19 | Local Epoch : 7 | [100/480 (21%)]	Loss: 0.007234
-| Global Round : 19 | Local Epoch : 7 | [200/480 (42%)]	Loss: 0.293658 40%|####      | 20/50 [07:08<10:11, 20.38s/it]
+| Global Round : 19 | Local Epoch : 7 | [200/480 (42%)]	Loss: 0.293658 40%|####      | 20/50 [06:39<10:00, 20.00s/it]
 | Global Round : 19 | Local Epoch : 7 | [300/480 (62%)]	Loss: 0.010509
 | Global Round : 19 | Local Epoch : 7 | [400/480 (83%)]	Loss: 0.198955
 | Global Round : 19 | Local Epoch : 8 | [0/480 (0%)]	Loss: 0.245074
@@ -10554,7 +10554,7 @@ Train Accuracy: 97.68%
 | Global Round : 20 | Local Epoch : 8 | [100/480 (21%)]	Loss: 0.095547
 | Global Round : 20 | Local Epoch : 8 | [200/480 (42%)]	Loss: 0.227252
 | Global Round : 20 | Local Epoch : 8 | [300/480 (62%)]	Loss: 0.006599
-| Global Round : 20 | Local Epoch : 8 | [400/480 (83%)]	Loss: 0.105151 42%|####2     | 21/50 [07:28<09:49, 20.33s/it]
+| Global Round : 20 | Local Epoch : 8 | [400/480 (83%)]	Loss: 0.105151 42%|####2     | 21/50 [06:59<09:39, 19.99s/it]
 | Global Round : 20 | Local Epoch : 9 | [0/480 (0%)]	Loss: 0.018836
 | Global Round : 20 | Local Epoch : 9 | [100/480 (21%)]	Loss: 0.023414
 | Global Round : 20 | Local Epoch : 9 | [200/480 (42%)]	Loss: 0.013202
@@ -11132,7 +11132,7 @@ Round 21: 採択端末=[6, 95, 22] (うちGroup A[0,1]: 1台)
 | Global Round : 21 | Local Epoch : 3 | [0/480 (0%)]	Loss: 0.012262
 | Global Round : 21 | Local Epoch : 3 | [100/480 (21%)]	Loss: 0.548133
 | Global Round : 21 | Local Epoch : 3 | [200/480 (42%)]	Loss: 0.019414
-| Global Round : 21 | Local Epoch : 3 | [300/480 (62%)]	Loss: 0.004699 44%|####4     | 22/50 [07:48<09:28, 20.31s/it]
+| Global Round : 21 | Local Epoch : 3 | [300/480 (62%)]	Loss: 0.004699 44%|####4     | 22/50 [07:19<09:19, 19.97s/it]
 | Global Round : 21 | Local Epoch : 3 | [400/480 (83%)]	Loss: 0.391474
 | Global Round : 21 | Local Epoch : 4 | [0/480 (0%)]	Loss: 0.114621
 | Global Round : 21 | Local Epoch : 4 | [100/480 (21%)]	Loss: 0.133440
@@ -11598,7 +11598,7 @@ Train Accuracy: 97.92%
 | Global Round : 22 | Local Epoch : 4 | [200/480 (42%)]	Loss: 0.056960
 | Global Round : 22 | Local Epoch : 4 | [300/480 (62%)]	Loss: 0.039812
 | Global Round : 22 | Local Epoch : 4 | [400/480 (83%)]	Loss: 0.004448
-| Global Round : 22 | Local Epoch : 5 | [0/480 (0%)]	Loss: 0.055933 46%|####6     | 23/50 [08:09<09:11, 20.41s/it]
+| Global Round : 22 | Local Epoch : 5 | [0/480 (0%)]	Loss: 0.055933 46%|####6     | 23/50 [07:39<08:59, 19.97s/it]
 | Global Round : 22 | Local Epoch : 5 | [100/480 (21%)]	Loss: 0.025771
 | Global Round : 22 | Local Epoch : 5 | [200/480 (42%)]	Loss: 0.286549
 | Global Round : 22 | Local Epoch : 5 | [300/480 (62%)]	Loss: 0.034073
@@ -12176,7 +12176,7 @@ Round 23: 採択端末=[46, 9, 21] (うちGroup A[0,1]: 1台)
 | Global Round : 23 | Local Epoch : 9 | [100/480 (21%)]	Loss: 0.022249
 | Global Round : 23 | Local Epoch : 9 | [200/480 (42%)]	Loss: 0.000723
 | Global Round : 23 | Local Epoch : 9 | [300/480 (62%)]	Loss: 0.096284
-| Global Round : 23 | Local Epoch : 9 | [400/480 (83%)]	Loss: 0.045652 48%|####8     | 24/50 [08:29<08:48, 20.34s/it]
+| Global Round : 23 | Local Epoch : 9 | [400/480 (83%)]	Loss: 0.045652 48%|####8     | 24/50 [07:59<08:39, 19.99s/it]
 Round 24: 採択端末=[34, 57, 16] (うちGroup A[0,1]: 1台)
  
 Avg Training Stats after 24 global rounds:
@@ -12642,7 +12642,7 @@ Train Accuracy: 97.85%
 | Global Round : 24 | Local Epoch : 0 | [300/480 (62%)]	Loss: 0.964554
 | Global Round : 24 | Local Epoch : 0 | [400/480 (83%)]	Loss: 0.100750
 | Global Round : 24 | Local Epoch : 1 | [0/480 (0%)]	Loss: 0.270681
-| Global Round : 24 | Local Epoch : 1 | [100/480 (21%)]	Loss: 0.233972 50%|#####     | 25/50 [08:50<08:28, 20.35s/it]
+| Global Round : 24 | Local Epoch : 1 | [100/480 (21%)]	Loss: 0.233972 50%|#####     | 25/50 [08:19<08:19, 19.97s/it]
 | Global Round : 24 | Local Epoch : 1 | [200/480 (42%)]	Loss: 0.305361
 | Global Round : 24 | Local Epoch : 1 | [300/480 (62%)]	Loss: 0.517384
 | Global Round : 24 | Local Epoch : 1 | [400/480 (83%)]	Loss: 0.034647
@@ -13105,7 +13105,7 @@ Round 25: 採択端末=[94, 99, 39] (うちGroup A[0,1]: 0台)
 | Global Round : 25 | Local Epoch : 2 | [200/480 (42%)]	Loss: 0.058475
 | Global Round : 25 | Local Epoch : 2 | [300/480 (62%)]	Loss: 0.032760
 | Global Round : 25 | Local Epoch : 2 | [400/480 (83%)]	Loss: 0.155498
-| Global Round : 25 | Local Epoch : 3 | [0/480 (0%)]	Loss: 0.824294 52%|#####2    | 26/50 [09:10<08:07, 20.32s/it]
+| Global Round : 25 | Local Epoch : 3 | [0/480 (0%)]	Loss: 0.824294 52%|#####2    | 26/50 [08:39<07:59, 19.97s/it]
 | Global Round : 25 | Local Epoch : 3 | [100/480 (21%)]	Loss: 0.378620
 | Global Round : 25 | Local Epoch : 3 | [200/480 (42%)]	Loss: 0.017541
 | Global Round : 25 | Local Epoch : 3 | [300/480 (62%)]	Loss: 0.079614
@@ -13686,7 +13686,7 @@ Train Accuracy: 97.91%
 | Global Round : 26 | Local Epoch : 6 | [400/480 (83%)]	Loss: 0.237102
 | Global Round : 26 | Local Epoch : 7 | [0/480 (0%)]	Loss: 0.418110
 | Global Round : 26 | Local Epoch : 7 | [100/480 (21%)]	Loss: 0.112014
-| Global Round : 26 | Local Epoch : 7 | [200/480 (42%)]	Loss: 0.032584 54%|#####4    | 27/50 [09:30<07:46, 20.29s/it]
+| Global Round : 26 | Local Epoch : 7 | [200/480 (42%)]	Loss: 0.032584 54%|#####4    | 27/50 [09:00<07:44, 20.19s/it]
 | Global Round : 26 | Local Epoch : 7 | [300/480 (62%)]	Loss: 0.141537
 | Global Round : 26 | Local Epoch : 7 | [400/480 (83%)]	Loss: 0.034856
 | Global Round : 26 | Local Epoch : 8 | [0/480 (0%)]	Loss: 0.010330
@@ -14149,7 +14149,7 @@ Round 27: 採択端末=[41, 70, 8] (うちGroup A[0,1]: 1台)
 | Global Round : 27 | Local Epoch : 8 | [300/480 (62%)]	Loss: 0.078568
 | Global Round : 27 | Local Epoch : 8 | [400/480 (83%)]	Loss: 0.053671
 | Global Round : 27 | Local Epoch : 9 | [0/480 (0%)]	Loss: 0.148732
-| Global Round : 27 | Local Epoch : 9 | [100/480 (21%)]	Loss: 0.002659 56%|#####6    | 28/50 [09:51<07:27, 20.34s/it]
+| Global Round : 27 | Local Epoch : 9 | [100/480 (21%)]	Loss: 0.002659 56%|#####6    | 28/50 [09:20<07:23, 20.17s/it]
 | Global Round : 27 | Local Epoch : 9 | [200/480 (42%)]	Loss: 0.141296
 | Global Round : 27 | Local Epoch : 9 | [300/480 (62%)]	Loss: 0.247996
 | Global Round : 27 | Local Epoch : 9 | [400/480 (83%)]	Loss: 0.146938
@@ -14615,7 +14615,7 @@ Train Accuracy: 98.01%
 | Global Round : 28 | Local Epoch : 0 | [0/480 (0%)]	Loss: 0.493599
 | Global Round : 28 | Local Epoch : 0 | [100/480 (21%)]	Loss: 0.002872
 | Global Round : 28 | Local Epoch : 0 | [200/480 (42%)]	Loss: 0.011729
-| Global Round : 28 | Local Epoch : 0 | [300/480 (62%)]	Loss: 0.011307 58%|#####8    | 29/50 [10:11<07:06, 20.30s/it]
+| Global Round : 28 | Local Epoch : 0 | [300/480 (62%)]	Loss: 0.011307 58%|#####8    | 29/50 [09:40<07:03, 20.16s/it]
 | Global Round : 28 | Local Epoch : 0 | [400/480 (83%)]	Loss: 0.070657
 | Global Round : 28 | Local Epoch : 1 | [0/480 (0%)]	Loss: 0.371859
 | Global Round : 28 | Local Epoch : 1 | [100/480 (21%)]	Loss: 0.092343
@@ -15193,7 +15193,7 @@ Round 29: 採択端末=[15, 31, 84] (うちGroup A[0,1]: 1台)
 | Global Round : 29 | Local Epoch : 4 | [400/480 (83%)]	Loss: 0.020774
 | Global Round : 29 | Local Epoch : 5 | [0/480 (0%)]	Loss: 0.156683
 | Global Round : 29 | Local Epoch : 5 | [100/480 (21%)]	Loss: 0.340318
-| Global Round : 29 | Local Epoch : 5 | [200/480 (42%)]	Loss: 0.070848 60%|######    | 30/50 [10:31<06:45, 20.26s/it]
+| Global Round : 29 | Local Epoch : 5 | [200/480 (42%)]	Loss: 0.070848 60%|######    | 30/50 [10:01<06:44, 20.25s/it]
 | Global Round : 29 | Local Epoch : 5 | [300/480 (62%)]	Loss: 0.113943
 | Global Round : 29 | Local Epoch : 5 | [400/480 (83%)]	Loss: 0.003888
 | Global Round : 29 | Local Epoch : 6 | [0/480 (0%)]	Loss: 0.414397
@@ -15659,7 +15659,7 @@ Train Accuracy: 98.10%
 | Global Round : 30 | Local Epoch : 6 | [100/480 (21%)]	Loss: 0.033968
 | Global Round : 30 | Local Epoch : 6 | [200/480 (42%)]	Loss: 0.001485
 | Global Round : 30 | Local Epoch : 6 | [300/480 (62%)]	Loss: 0.036575
-| Global Round : 30 | Local Epoch : 6 | [400/480 (83%)]	Loss: 0.062242 62%|######2   | 31/50 [10:51<06:26, 20.33s/it]
+| Global Round : 30 | Local Epoch : 6 | [400/480 (83%)]	Loss: 0.062242 62%|######2   | 31/50 [10:21<06:23, 20.20s/it]
 | Global Round : 30 | Local Epoch : 7 | [0/480 (0%)]	Loss: 0.003424
 | Global Round : 30 | Local Epoch : 7 | [100/480 (21%)]	Loss: 0.023413
 | Global Round : 30 | Local Epoch : 7 | [200/480 (42%)]	Loss: 0.013379
@@ -16122,7 +16122,7 @@ Round 31: 採択端末=[28, 49, 44] (うちGroup A[0,1]: 0台)
 | Global Round : 31 | Local Epoch : 8 | [0/480 (0%)]	Loss: 0.645300
 | Global Round : 31 | Local Epoch : 8 | [100/480 (21%)]	Loss: 0.093084
 | Global Round : 31 | Local Epoch : 8 | [200/480 (42%)]	Loss: 0.011656
-| Global Round : 31 | Local Epoch : 8 | [300/480 (62%)]	Loss: 0.038241 64%|######4   | 32/50 [11:12<06:05, 20.28s/it]
+| Global Round : 31 | Local Epoch : 8 | [300/480 (62%)]	Loss: 0.038241 64%|######4   | 32/50 [10:41<06:02, 20.13s/it]
 | Global Round : 31 | Local Epoch : 8 | [400/480 (83%)]	Loss: 0.022847
 | Global Round : 31 | Local Epoch : 9 | [0/480 (0%)]	Loss: 0.006798
 | Global Round : 31 | Local Epoch : 9 | [100/480 (21%)]	Loss: 0.552724
@@ -16703,7 +16703,7 @@ Train Accuracy: 98.27%
 | Global Round : 32 | Local Epoch : 2 | [200/480 (42%)]	Loss: 0.051297
 | Global Round : 32 | Local Epoch : 2 | [300/480 (62%)]	Loss: 0.125607
 | Global Round : 32 | Local Epoch : 2 | [400/480 (83%)]	Loss: 0.795274
-| Global Round : 32 | Local Epoch : 3 | [0/480 (0%)]	Loss: 1.053370 66%|######6   | 33/50 [11:32<05:44, 20.25s/it]
+| Global Round : 32 | Local Epoch : 3 | [0/480 (0%)]	Loss: 1.053370 66%|######6   | 33/50 [11:01<05:41, 20.08s/it]
 | Global Round : 32 | Local Epoch : 3 | [100/480 (21%)]	Loss: 0.018250
 | Global Round : 32 | Local Epoch : 3 | [200/480 (42%)]	Loss: 0.077654
 | Global Round : 32 | Local Epoch : 3 | [300/480 (62%)]	Loss: 0.385155
@@ -17166,7 +17166,7 @@ Round 33: 採択端末=[54, 75, 91] (うちGroup A[0,1]: 0台)
 | Global Round : 33 | Local Epoch : 4 | [100/480 (21%)]	Loss: 0.003352
 | Global Round : 33 | Local Epoch : 4 | [200/480 (42%)]	Loss: 0.006467
 | Global Round : 33 | Local Epoch : 4 | [300/480 (62%)]	Loss: 0.075683
-| Global Round : 33 | Local Epoch : 4 | [400/480 (83%)]	Loss: 0.064688 68%|######8   | 34/50 [11:52<05:23, 20.24s/it]
+| Global Round : 33 | Local Epoch : 4 | [400/480 (83%)]	Loss: 0.064688 68%|######8   | 34/50 [11:21<05:20, 20.05s/it]
 | Global Round : 33 | Local Epoch : 5 | [0/480 (0%)]	Loss: 0.006615
 | Global Round : 33 | Local Epoch : 5 | [100/480 (21%)]	Loss: 0.244815
 | Global Round : 33 | Local Epoch : 5 | [200/480 (42%)]	Loss: 0.042668
@@ -17747,7 +17747,7 @@ Train Accuracy: 98.14%
 | Global Round : 34 | Local Epoch : 8 | [300/480 (62%)]	Loss: 0.024847
 | Global Round : 34 | Local Epoch : 8 | [400/480 (83%)]	Loss: 0.095776
 | Global Round : 34 | Local Epoch : 9 | [0/480 (0%)]	Loss: 0.057088
-| Global Round : 34 | Local Epoch : 9 | [100/480 (21%)]	Loss: 0.044515 70%|#######   | 35/50 [12:13<05:05, 20.36s/it]
+| Global Round : 34 | Local Epoch : 9 | [100/480 (21%)]	Loss: 0.044515 70%|#######   | 35/50 [11:41<05:00, 20.02s/it]
 | Global Round : 34 | Local Epoch : 9 | [200/480 (42%)]	Loss: 0.012457
 | Global Round : 34 | Local Epoch : 9 | [300/480 (62%)]	Loss: 0.197058
 | Global Round : 34 | Local Epoch : 9 | [400/480 (83%)]	Loss: 0.001250
@@ -18210,7 +18210,7 @@ Round 35: 採択端末=[45, 20, 99] (うちGroup A[0,1]: 0台)
 | Global Round : 35 | Local Epoch : 0 | [200/480 (42%)]	Loss: 1.388692
 | Global Round : 35 | Local Epoch : 0 | [300/480 (62%)]	Loss: 0.091784
 | Global Round : 35 | Local Epoch : 0 | [400/480 (83%)]	Loss: 0.019565
-| Global Round : 35 | Local Epoch : 1 | [0/480 (0%)]	Loss: 0.314832 72%|#######2  | 36/50 [12:33<04:44, 20.29s/it]
+| Global Round : 35 | Local Epoch : 1 | [0/480 (0%)]	Loss: 0.314832 72%|#######2  | 36/50 [12:00<04:39, 19.98s/it]
 | Global Round : 35 | Local Epoch : 1 | [100/480 (21%)]	Loss: 0.051313
 | Global Round : 35 | Local Epoch : 1 | [200/480 (42%)]	Loss: 0.591566
 | Global Round : 35 | Local Epoch : 1 | [300/480 (62%)]	Loss: 0.146741
@@ -18676,7 +18676,7 @@ Train Accuracy: 98.16%
 | Global Round : 36 | Local Epoch : 1 | [400/480 (83%)]	Loss: 0.018578
 | Global Round : 36 | Local Epoch : 2 | [0/480 (0%)]	Loss: 0.010554
 | Global Round : 36 | Local Epoch : 2 | [100/480 (21%)]	Loss: 0.511760
-| Global Round : 36 | Local Epoch : 2 | [200/480 (42%)]	Loss: 0.010699 74%|#######4  | 37/50 [12:53<04:25, 20.41s/it]
+| Global Round : 36 | Local Epoch : 2 | [200/480 (42%)]	Loss: 0.010699 74%|#######4  | 37/50 [12:20<04:19, 19.97s/it]
 | Global Round : 36 | Local Epoch : 2 | [300/480 (62%)]	Loss: 0.124675
 | Global Round : 36 | Local Epoch : 2 | [400/480 (83%)]	Loss: 0.077854
 | Global Round : 36 | Local Epoch : 3 | [0/480 (0%)]	Loss: 0.066228
@@ -19254,7 +19254,7 @@ Round 37: 採択端末=[4, 18, 91] (うちGroup A[0,1]: 2台)
 | Global Round : 37 | Local Epoch : 6 | [300/480 (62%)]	Loss: 0.019526
 | Global Round : 37 | Local Epoch : 6 | [400/480 (83%)]	Loss: 0.002312
 | Global Round : 37 | Local Epoch : 7 | [0/480 (0%)]	Loss: 0.115077
-| Global Round : 37 | Local Epoch : 7 | [100/480 (21%)]	Loss: 0.000995 76%|#######6  | 38/50 [13:14<04:04, 20.35s/it]
+| Global Round : 37 | Local Epoch : 7 | [100/480 (21%)]	Loss: 0.000995 76%|#######6  | 38/50 [12:40<03:59, 19.97s/it]
 | Global Round : 37 | Local Epoch : 7 | [200/480 (42%)]	Loss: 0.488819
 | Global Round : 37 | Local Epoch : 7 | [300/480 (62%)]	Loss: 0.035310
 | Global Round : 37 | Local Epoch : 7 | [400/480 (83%)]	Loss: 0.352571
@@ -19720,7 +19720,7 @@ Train Accuracy: 98.24%
 | Global Round : 38 | Local Epoch : 8 | [0/480 (0%)]	Loss: 0.032529
 | Global Round : 38 | Local Epoch : 8 | [100/480 (21%)]	Loss: 0.294659
 | Global Round : 38 | Local Epoch : 8 | [200/480 (42%)]	Loss: 0.004979
-| Global Round : 38 | Local Epoch : 8 | [300/480 (62%)]	Loss: 0.108431 78%|#######8  | 39/50 [13:34<03:43, 20.36s/it]
+| Global Round : 38 | Local Epoch : 8 | [300/480 (62%)]	Loss: 0.108431 78%|#######8  | 39/50 [13:00<03:39, 19.96s/it]
 | Global Round : 38 | Local Epoch : 8 | [400/480 (83%)]	Loss: 0.038468
 | Global Round : 38 | Local Epoch : 9 | [0/480 (0%)]	Loss: 0.090915
 | Global Round : 38 | Local Epoch : 9 | [100/480 (21%)]	Loss: 0.005673
@@ -20183,7 +20183,7 @@ Round 39: 採択端末=[1, 54, 12] (うちGroup A[0,1]: 2台)
 | Global Round : 39 | Local Epoch : 9 | [400/480 (83%)]	Loss: 0.019068
 | Global Round : 39 | Local Epoch : 0 | [0/480 (0%)]	Loss: 0.002485
 | Global Round : 39 | Local Epoch : 0 | [100/480 (21%)]	Loss: 0.656188
-| Global Round : 39 | Local Epoch : 0 | [200/480 (42%)]	Loss: 0.066710 80%|########  | 40/50 [13:54<03:23, 20.33s/it]
+| Global Round : 39 | Local Epoch : 0 | [200/480 (42%)]	Loss: 0.066710 80%|########  | 40/50 [13:20<03:19, 19.97s/it]
 | Global Round : 39 | Local Epoch : 0 | [300/480 (62%)]	Loss: 0.046240
 | Global Round : 39 | Local Epoch : 0 | [400/480 (83%)]	Loss: 0.032593
 | Global Round : 39 | Local Epoch : 1 | [0/480 (0%)]	Loss: 0.420863
@@ -20764,7 +20764,7 @@ Train Accuracy: 98.18%
 | Global Round : 40 | Local Epoch : 4 | [100/480 (21%)]	Loss: 0.062146
 | Global Round : 40 | Local Epoch : 4 | [200/480 (42%)]	Loss: 0.020910
 | Global Round : 40 | Local Epoch : 4 | [300/480 (62%)]	Loss: 0.053718
-| Global Round : 40 | Local Epoch : 4 | [400/480 (83%)]	Loss: 0.113193 82%|########2 | 41/50 [14:15<03:03, 20.35s/it]
+| Global Round : 40 | Local Epoch : 4 | [400/480 (83%)]	Loss: 0.113193 82%|########2 | 41/50 [13:40<03:00, 20.01s/it]
 | Global Round : 40 | Local Epoch : 5 | [0/480 (0%)]	Loss: 0.033471
 | Global Round : 40 | Local Epoch : 5 | [100/480 (21%)]	Loss: 0.153455
 | Global Round : 40 | Local Epoch : 5 | [200/480 (42%)]	Loss: 0.165982
@@ -21227,7 +21227,7 @@ Round 41: 採択端末=[94, 27, 69] (うちGroup A[0,1]: 0台)
 | Global Round : 41 | Local Epoch : 6 | [0/480 (0%)]	Loss: 0.000081
 | Global Round : 41 | Local Epoch : 6 | [100/480 (21%)]	Loss: 0.154172
 | Global Round : 41 | Local Epoch : 6 | [200/480 (42%)]	Loss: 0.142888
-| Global Round : 41 | Local Epoch : 6 | [300/480 (62%)]	Loss: 0.012513 84%|########4 | 42/50 [14:35<02:42, 20.29s/it]
+| Global Round : 41 | Local Epoch : 6 | [300/480 (62%)]	Loss: 0.012513 84%|########4 | 42/50 [14:00<02:39, 19.99s/it]
 | Global Round : 41 | Local Epoch : 6 | [400/480 (83%)]	Loss: 0.048502
 | Global Round : 41 | Local Epoch : 7 | [0/480 (0%)]	Loss: 0.052236
 | Global Round : 41 | Local Epoch : 7 | [100/480 (21%)]	Loss: 0.123439
@@ -21693,7 +21693,7 @@ Train Accuracy: 98.29%
 | Global Round : 42 | Local Epoch : 7 | [200/480 (42%)]	Loss: 0.007326
 | Global Round : 42 | Local Epoch : 7 | [300/480 (62%)]	Loss: 0.015453
 | Global Round : 42 | Local Epoch : 7 | [400/480 (83%)]	Loss: 0.001376
-| Global Round : 42 | Local Epoch : 8 | [0/480 (0%)]	Loss: 0.010200 86%|########6 | 43/50 [14:55<02:22, 20.36s/it]
+| Global Round : 42 | Local Epoch : 8 | [0/480 (0%)]	Loss: 0.010200 86%|########6 | 43/50 [14:20<02:19, 19.95s/it]
 | Global Round : 42 | Local Epoch : 8 | [100/480 (21%)]	Loss: 0.026884
 | Global Round : 42 | Local Epoch : 8 | [200/480 (42%)]	Loss: 0.020870
 | Global Round : 42 | Local Epoch : 8 | [300/480 (62%)]	Loss: 0.042401
@@ -22271,7 +22271,7 @@ Round 43: 採択端末=[91, 13, 23] (うちGroup A[0,1]: 1台)
 | Global Round : 43 | Local Epoch : 2 | [100/480 (21%)]	Loss: 0.042494
 | Global Round : 43 | Local Epoch : 2 | [200/480 (42%)]	Loss: 0.155891
 | Global Round : 43 | Local Epoch : 2 | [300/480 (62%)]	Loss: 0.200297
-| Global Round : 43 | Local Epoch : 2 | [400/480 (83%)]	Loss: 0.026969 88%|########8 | 44/50 [15:15<02:01, 20.29s/it]
+| Global Round : 43 | Local Epoch : 2 | [400/480 (83%)]	Loss: 0.026969 88%|########8 | 44/50 [14:40<01:59, 19.93s/it]
 | Global Round : 43 | Local Epoch : 3 | [0/480 (0%)]	Loss: 0.033261
 | Global Round : 43 | Local Epoch : 3 | [100/480 (21%)]	Loss: 0.107101
 | Global Round : 43 | Local Epoch : 3 | [200/480 (42%)]	Loss: 0.000083
@@ -22737,7 +22737,7 @@ Train Accuracy: 98.48%
 | Global Round : 44 | Local Epoch : 3 | [300/480 (62%)]	Loss: 0.035188
 | Global Round : 44 | Local Epoch : 3 | [400/480 (83%)]	Loss: 0.003268
 | Global Round : 44 | Local Epoch : 4 | [0/480 (0%)]	Loss: 0.085852
-| Global Round : 44 | Local Epoch : 4 | [100/480 (21%)]	Loss: 0.011899 90%|######### | 45/50 [15:36<01:41, 20.26s/it]
+| Global Round : 44 | Local Epoch : 4 | [100/480 (21%)]	Loss: 0.011899 90%|######### | 45/50 [15:00<01:39, 19.95s/it]
 | Global Round : 44 | Local Epoch : 4 | [200/480 (42%)]	Loss: 0.059004
 | Global Round : 44 | Local Epoch : 4 | [300/480 (62%)]	Loss: 0.026461
 | Global Round : 44 | Local Epoch : 4 | [400/480 (83%)]	Loss: 0.016747
@@ -23315,7 +23315,7 @@ Round 45: 採択端末=[99, 15, 54] (うちGroup A[0,1]: 1台)
 | Global Round : 45 | Local Epoch : 8 | [200/480 (42%)]	Loss: 0.092245
 | Global Round : 45 | Local Epoch : 8 | [300/480 (62%)]	Loss: 0.014506
 | Global Round : 45 | Local Epoch : 8 | [400/480 (83%)]	Loss: 0.042284
-| Global Round : 45 | Local Epoch : 9 | [0/480 (0%)]	Loss: 0.057328 92%|#########2| 46/50 [15:56<01:21, 20.27s/it]
+| Global Round : 45 | Local Epoch : 9 | [0/480 (0%)]	Loss: 0.057328 92%|#########2| 46/50 [15:20<01:20, 20.00s/it]
 | Global Round : 45 | Local Epoch : 9 | [100/480 (21%)]	Loss: 0.202319
 | Global Round : 45 | Local Epoch : 9 | [200/480 (42%)]	Loss: 0.141793
 | Global Round : 45 | Local Epoch : 9 | [300/480 (62%)]	Loss: 0.054088
@@ -23781,7 +23781,7 @@ Train Accuracy: 98.42%
 | Global Round : 46 | Local Epoch : 9 | [400/480 (83%)]	Loss: 0.028898
 | Global Round : 46 | Local Epoch : 0 | [0/480 (0%)]	Loss: 0.073647
 | Global Round : 46 | Local Epoch : 0 | [100/480 (21%)]	Loss: 0.073437
-| Global Round : 46 | Local Epoch : 0 | [200/480 (42%)]	Loss: 0.174205 94%|#########3| 47/50 [16:16<01:00, 20.23s/it]
+| Global Round : 46 | Local Epoch : 0 | [200/480 (42%)]	Loss: 0.174205 94%|#########3| 47/50 [15:40<01:00, 20.03s/it]
 | Global Round : 46 | Local Epoch : 0 | [300/480 (62%)]	Loss: 0.433666
 | Global Round : 46 | Local Epoch : 0 | [400/480 (83%)]	Loss: 0.452127
 | Global Round : 46 | Local Epoch : 1 | [0/480 (0%)]	Loss: 0.008880
@@ -24244,7 +24244,7 @@ Round 47: 採択端末=[70, 65, 73] (うちGroup A[0,1]: 0台)
 | Global Round : 47 | Local Epoch : 1 | [300/480 (62%)]	Loss: 0.521411
 | Global Round : 47 | Local Epoch : 1 | [400/480 (83%)]	Loss: 0.020509
 | Global Round : 47 | Local Epoch : 2 | [0/480 (0%)]	Loss: 0.001964
-| Global Round : 47 | Local Epoch : 2 | [100/480 (21%)]	Loss: 0.000536 96%|#########6| 48/50 [16:36<00:40, 20.21s/it]
+| Global Round : 47 | Local Epoch : 2 | [100/480 (21%)]	Loss: 0.000536 96%|#########6| 48/50 [16:00<00:40, 20.02s/it]
 | Global Round : 47 | Local Epoch : 2 | [200/480 (42%)]	Loss: 0.006548
 | Global Round : 47 | Local Epoch : 2 | [300/480 (62%)]	Loss: 0.115119
 | Global Round : 47 | Local Epoch : 2 | [400/480 (83%)]	Loss: 0.320148
@@ -24825,7 +24825,7 @@ Train Accuracy: 98.32%
 | Global Round : 48 | Local Epoch : 6 | [0/480 (0%)]	Loss: 0.004115
 | Global Round : 48 | Local Epoch : 6 | [100/480 (21%)]	Loss: 0.254811
 | Global Round : 48 | Local Epoch : 6 | [200/480 (42%)]	Loss: 0.000001
-| Global Round : 48 | Local Epoch : 6 | [300/480 (62%)]	Loss: 0.069126 98%|#########8| 49/50 [16:57<00:20, 20.29s/it]
+| Global Round : 48 | Local Epoch : 6 | [300/480 (62%)]	Loss: 0.069126 98%|#########8| 49/50 [16:20<00:20, 20.01s/it]
 | Global Round : 48 | Local Epoch : 6 | [400/480 (83%)]	Loss: 0.555102
 | Global Round : 48 | Local Epoch : 7 | [0/480 (0%)]	Loss: 0.389255
 | Global Round : 48 | Local Epoch : 7 | [100/480 (21%)]	Loss: 0.327350
@@ -25288,7 +25288,7 @@ Round 49: 採択端末=[69, 27, 5] (うちGroup A[0,1]: 1台)
 | Global Round : 49 | Local Epoch : 7 | [400/480 (83%)]	Loss: 0.079519
 | Global Round : 49 | Local Epoch : 8 | [0/480 (0%)]	Loss: 0.003856
 | Global Round : 49 | Local Epoch : 8 | [100/480 (21%)]	Loss: 0.053333
-| Global Round : 49 | Local Epoch : 8 | [200/480 (42%)]	Loss: 0.107760100%|##########| 50/50 [17:17<00:00, 20.23s/it]100%|##########| 50/50 [17:17<00:00, 20.75s/it]
+| Global Round : 49 | Local Epoch : 8 | [200/480 (42%)]	Loss: 0.107760100%|##########| 50/50 [16:40<00:00, 20.03s/it]100%|##########| 50/50 [16:40<00:00, 20.02s/it]
 
 | Global Round : 49 | Local Epoch : 8 | [300/480 (62%)]	Loss: 0.000094
 | Global Round : 49 | Local Epoch : 8 | [400/480 (83%)]	Loss: 0.000941
@@ -25358,4 +25358,4 @@ Train Accuracy: 98.34%
 |---- Avg Train Accuracy: 98.34%
 |---- Test Accuracy: 98.34%
 
- Total Run Time: 1039.6081
+ Total Run Time: 1003.1129
