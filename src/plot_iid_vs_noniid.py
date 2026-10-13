@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 # FedGSCS の iid と non-iid の結果を、複数シードで平均してグラフにするスクリプト
 #
 # 使い方（src フォルダで、run_iid_vs_noniid.py と同じオプションで実行）:
@@ -6,6 +8,8 @@
 # 出力:
 #   左のグラフ: ラウンドごとのテスト精度（線 = 平均、帯 = 平均 ± 標準偏差）
 #   右のグラフ: 最終精度（論文と同じく最後の5ラウンドの平均）をシードごとに点で、平均を横線で表示
+#   ./save/ に PNG 画像と、平均・標準偏差の CSV を保存します
+#   さらに、テスト損失が保存されている結果なら、損失のグラフ（..._loss.png）も保存します
 
 import os
 import sys
@@ -43,7 +47,7 @@ def result_path(iid, seed):
 # ---- 読み込み ----
 data = {}
 for iid, label, _ in CONDITIONS:
-    accs, used = [], []
+    accs, losses, used = [], [], []
     for s in seeds:
         path = result_path(iid, s)
         if not os.path.exists(path):
@@ -51,12 +55,15 @@ for iid, label, _ in CONDITIONS:
             continue
         with open(path, 'rb') as f:
             loaded = pickle.load(f)
-        accs.append(np.array(loaded[1], dtype=float) * 100)   # [train_loss, train_accuracy(=テスト精度)]
+        accs.append(np.array(loaded[1], dtype=float) * 100)   # [train_loss, train_accuracy(=テスト精度), test_loss]
+        losses.append(np.array(loaded[2], dtype=float) if len(loaded) >= 3 else None)
         used.append(s)
     if not accs:
         exit(f'{label} の結果が1つもありません。run_iid_vs_noniid.py と同じオプションか確認してください')
     n_round = min(len(a) for a in accs)
-    data[label] = {'acc': np.stack([a[:n_round] for a in accs]), 'seeds': used}
+    data[label] = {'acc': np.stack([a[:n_round] for a in accs]), 'seeds': used,
+                   'loss': (np.stack([l[:n_round] for l in losses])
+                            if all(l is not None for l in losses) else None)}
  
 # ---- 集計 ----
 print('\n========== 結果（FedGSCS）==========')
@@ -148,3 +155,57 @@ with open(csv_path, 'w', newline='', encoding='utf-8-sig') as f:
 print(f'\nグラフを保存しました: {png}')
 print(f'数値を保存しました:   {csv_path}')
  
+ 
+# ---- 損失のグラフ（テスト損失が保存されている場合だけ）----
+if all(data[label]['loss'] is not None for label in data):
+    fig2, ax = plt.subplots(figsize=(8, 5), facecolor=BG)
+    print('\n---------- テスト損失 ----------')
+    for iid, label, color in CONDITIONS:
+        loss = data[label]['loss']
+        x = np.arange(1, loss.shape[1] + 1)
+        mean = loss.mean(axis=0)
+        sd = loss.std(axis=0, ddof=1) if loss.shape[0] > 1 else np.zeros_like(mean)
+        ax.plot(x, mean, color=color, lw=2, label=f'{label} (n={loss.shape[0]})')
+        ax.fill_between(x, mean - sd, mean + sd, color=color, alpha=0.15, lw=0)
+        data[label]['loss_mean'], data[label]['loss_sd'] = mean, sd
+        final = loss[:, -p_args.last:].mean(axis=1)
+        fsd = final.std(ddof=1) if len(final) > 1 else 0.0
+        print(f'{label:8s}: 最終テスト損失（最後の{p_args.last}ラウンド平均） {final.mean():.4f} ± {fsd:.4f}')
+    ends = {label: data[label]['loss_mean'][-1] for label in data}
+    hi, lo = sorted(ends, key=ends.get, reverse=True)
+    ymax = max(np.max(data[l]['loss_mean'] + data[l]['loss_sd']) for l in data)
+    close = abs(ends[hi] - ends[lo]) < 0.06 * ymax
+    for label, dy in [(hi, 7 if close else 0), (lo, -7 if close else 0)]:
+        xe = len(data[label]['loss_mean'])
+        ax.annotate(f'{label} {ends[label]:.3f}', (xe, ends[label]), xytext=(6, dy),
+                    textcoords='offset points', va='center', color=INK, fontsize=9)
+    ax.set_title('FedGSCS test loss (mean ± 1 SD across seeds, lower is better)', loc='left',
+                 color=INK, fontsize=11)
+    ax.set_xlabel('Communication round')
+    ax.set_ylabel('Test loss (NLL, per batch)')
+    ax.set_ylim(bottom=0)
+    ax.set_xlim(0.5, ax.get_xlim()[1] * 1.12)
+    ax.grid(axis='y', color=GRID, lw=0.8)
+    ax.spines[['top', 'right']].set_visible(False)
+    ax.legend(frameon=False, loc='upper right')
+    ax.set_facecolor(BG)
+    fig2.suptitle(f'FedGSCS: IID vs Non-IID  |  {args.dataset}, {args.model}, rounds={args.epochs}, '
+                  f'C={args.frac}, E={args.local_ep}, B={args.local_bs}',
+                  color=INK, fontsize=11, x=0.01, ha='left')
+    fig2.tight_layout()
+    png_loss = f'./save/FedGSCS_iid_vs_noniid_{tag}_loss.png'
+    fig2.savefig(png_loss, dpi=150)
+ 
+    csv_loss = f'./save/FedGSCS_iid_vs_noniid_{tag}_loss.csv'
+    with open(csv_loss, 'w', newline='', encoding='utf-8-sig') as f:
+        w = csv.writer(f)
+        w.writerow(['round', 'IID_mean', 'IID_sd', 'NonIID_mean', 'NonIID_sd'])
+        n_round = min(len(data['IID']['loss_mean']), len(data['Non-IID']['loss_mean']))
+        for r in range(n_round):
+            w.writerow([r + 1, f"{data['IID']['loss_mean'][r]:.5f}", f"{data['IID']['loss_sd'][r]:.5f}",
+                        f"{data['Non-IID']['loss_mean'][r]:.5f}", f"{data['Non-IID']['loss_sd'][r]:.5f}"])
+    print(f'\n損失のグラフを保存しました: {png_loss}')
+    print(f'損失の数値を保存しました:   {csv_loss}')
+else:
+    print('\n※ 損失のグラフは作りませんでした。テスト損失が入っていない（古い版で実行した）結果が含まれています。')
+    print('  損失も見たい場合は、更新版の federated_main_FedGSCS.py で実行し直してください（run_iid_vs_noniid.py に --rerun）。')

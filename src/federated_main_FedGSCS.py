@@ -10,6 +10,7 @@ import time
 import pickle
 import numpy as np
 from tqdm import tqdm
+import math 
 
 import torch
 from tensorboardX import SummaryWriter
@@ -82,14 +83,19 @@ if __name__ == '__main__':
     global_weights = global_model.state_dict()
     grad_keys = [k for k in global_weights.keys()
                  if torch.is_floating_point(global_weights[k])]
-    q_frac = 0.3
+    #cifar10のときは0.8にしてみる
+    q_frac = 0.8
     # Training
     train_loss, train_accuracy = [], []
+    #ラウンドごとのテスト損失を記録しておくリスト
+    test_loss_hist = []  
     val_acc_list, net_list = [], []
     cv_loss, cv_acc = [], []
     print_every = 2
     val_loss_pre, counter = 0, 0
-
+    #今回のラウンドに参加するユーザーをランダムに選別
+    m = max(int(args.frac * args.num_users), 1)
+    q = max(int(q_frac * m), 1)
     #通信ラウンドのループ
     for epoch in tqdm(range(args.epochs)):
         local_weights, local_losses = [], []
@@ -98,9 +104,6 @@ if __name__ == '__main__':
         print(f'\n | Global Training Round : {epoch+1} |\n')
 
         global_model.train()
-        #今回のラウンドに参加するユーザーをランダムに選別
-        m = max(int(args.frac * args.num_users), 1)
-        #m = max(int(0.2 * args.num_users), 1)
         idxs_users = np.random.choice(range(args.num_users), m, replace=False)
 
         #選ばれたユーザーごとに、データを渡して手元でモデルを訓練させる。
@@ -137,8 +140,6 @@ if __name__ == '__main__':
             cos_scores.append(sim.item())
         
         #類似度が高い上位q個の端末の厳選
-        #何個にしたらいいだろう
-        q=max(int(q_frac*m),1)
         top_q_indices = torch.topk(torch.tensor(cos_scores), k=q).indices.tolist()
         selected_real_users = [idxs_users[i] for i in top_q_indices]
         # Group AのユーザーID境界
@@ -200,6 +201,7 @@ if __name__ == '__main__':
         global_model.eval()#評価モードに切り替え
         t_acc, t_loss = test_inference(args, global_model, test_dataset)#テストデータで評価するようにする（ほんとに？）
         train_accuracy.append(t_acc)
+        test_loss_hist.append(t_loss / math.ceil(len(test_dataset) / 128))
 
         # print global training loss after every 'i' rounds（指定されたラウンドごとに進捗をプリント）
         if (epoch+1) % print_every == 0:
@@ -223,7 +225,7 @@ if __name__ == '__main__':
            args.local_ep, args.local_bs, args.seed)
 
     with open(file_name, 'wb') as f:
-        pickle.dump([train_loss, train_accuracy], f)
+        pickle.dump([train_loss, train_accuracy, test_loss_hist], f)
 
     print('\n Total Run Time: {0:0.4f}'.format(time.time()-start_time))
 
