@@ -106,7 +106,8 @@ ax1.set_ylabel('Test accuracy (%)')
 ax1.set_ylim(0, 102)
 ax1.set_xlim(0.5, ax1.get_xlim()[1] * 1.1)
 ax1.grid(axis='y', color=GRID, lw=0.8)
-ax1.spines[['top', 'right']].set_visible(False)
+for side in ('top', 'right'):
+    ax1.spines[side].set_visible(False)
 ax1.legend(frameon=False, loc='lower right')
 ax1.set_facecolor(BG)
  
@@ -127,7 +128,8 @@ ax2.set_title(f'Final accuracy\n(mean of last {p_args.last} rounds, per seed)', 
               color=INK, fontsize=11)
 ax2.set_ylabel('Test accuracy (%)')
 ax2.grid(axis='y', color=GRID, lw=0.8)
-ax2.spines[['top', 'right']].set_visible(False)
+for side in ('top','right'):
+    ax2.spines[side].set_visible(False)
 ax2.set_facecolor(BG)
  
 fig.suptitle(f'FedGSCS: IID vs Non-IID  |  {args.dataset}, {args.model}, rounds={args.epochs}, '
@@ -186,7 +188,8 @@ if all(data[label]['loss'] is not None for label in data):
     ax.set_ylim(bottom=0)
     ax.set_xlim(0.5, ax.get_xlim()[1] * 1.12)
     ax.grid(axis='y', color=GRID, lw=0.8)
-    ax.spines[['top', 'right']].set_visible(False)
+    for side in ('top', 'right'):
+        ax.spines[side].set_visible(False)
     ax.legend(frameon=False, loc='upper right')
     ax.set_facecolor(BG)
     fig2.suptitle(f'FedGSCS: IID vs Non-IID  |  {args.dataset}, {args.model}, rounds={args.epochs}, '

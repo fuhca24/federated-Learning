@@ -1,0 +1,364 @@
+
+Experimental details:
+    Model     : cnn
+    Optimizer : sgd
+    Learning  : 0.01
+    Global Rounds   : 50
+
+    Federated parameters:
+    Non-IID
+    Fraction of users  : 1.0
+    Local Batch size   : 10
+    Local Epochs       : 1
+
+Files already downloaded and verified
+Files already downloaded and verified
+
+========================================
+User 0 の所持クラス: {0: 2513, 1: 2487}
+User 1 の所持クラス: {0: 2487, 1: 2513}
+User 9 の所持クラス: {2: 645, 3: 645, 4: 600, 5: 610, 6: 598, 7: 623, 8: 614, 9: 665}
+========================================
+
+CNNCifar(
+  (conv1): Conv2d(3, 6, kernel_size=(5, 5), stride=(1, 1))
+  (pool): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  (conv2): Conv2d(6, 16, kernel_size=(5, 5), stride=(1, 1))
+  (fc1): Linear(in_features=400, out_features=120, bias=True)
+  (fc2): Linear(in_features=120, out_features=84, bias=True)
+  (fc3): Linear(in_features=84, out_features=10, bias=True)
+)
+  0%|          | 0/50 [00:00<?, ?it/s]C:\Users\fuhca\federated-Learning\src\update.py:23: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return torch.tensor(image), torch.tensor(label)
+  2%|2         | 1/50 [00:32<26:47, 32.81s/it]  4%|4         | 2/50 [01:06<26:27, 33.08s/it]  6%|6         | 3/50 [01:39<25:57, 33.13s/it]  8%|8         | 4/50 [02:12<25:18, 33.00s/it] 10%|#         | 5/50 [02:44<24:38, 32.87s/it] 12%|#2        | 6/50 [03:18<24:15, 33.09s/it] 14%|#4        | 7/50 [03:50<23:37, 32.97s/it] 16%|#6        | 8/50 [04:23<23:05, 32.98s/it] 18%|#8        | 9/50 [04:57<22:36, 33.09s/it] 20%|##        | 10/50 [05:30<22:02, 33.06s/it] 22%|##2       | 11/50 [06:03<21:28, 33.05s/it] 24%|##4       | 12/50 [06:37<21:04, 33.27s/it] 26%|##6       | 13/50 [07:10<20:33, 33.35s/it] 28%|##8       | 14/50 [07:43<19:55, 33.22s/it] 30%|###       | 15/50 [08:16<19:19, 33.14s/it] 32%|###2      | 16/50 [08:49<18:45, 33.10s/it] 34%|###4      | 17/50 [09:22<18:14, 33.18s/it] 36%|###6      | 18/50 [09:55<17:41, 33.16s/it] 38%|###8      | 19/50 [10:28<17:04, 33.05s/it] 40%|####      | 20/50 [11:01<16:32, 33.08s/it] 42%|####2     | 21/50 [11:34<15:56, 32.97s/it] 44%|####4     | 22/50 [12:07<15:23, 33.00s/it] 46%|####6     | 23/50 [12:40<14:48, 32.92s/it] 48%|####8     | 24/50 [13:13<14:15, 32.92s/it] 50%|#####     | 25/50 [13:46<13:41, 32.86s/it] 52%|#####2    | 26/50 [14:19<13:11, 32.99s/it] 54%|#####4    | 27/50 [14:53<12:43, 33.21s/it] 56%|#####6    | 28/50 [15:26<12:09, 33.14s/it] 58%|#####8    | 29/50 [16:02<11:54, 34.01s/it] 60%|######    | 30/50 [16:39<11:39, 34.97s/it] 62%|######2   | 31/50 [17:15<11:11, 35.37s/it] 64%|######4   | 32/50 [17:52<10:42, 35.68s/it] 66%|######6   | 33/50 [18:24<09:52, 34.83s/it] 68%|######8   | 34/50 [18:58<09:09, 34.33s/it] 70%|#######   | 35/50 [19:31<08:31, 34.10s/it] 72%|#######2  | 36/50 [20:04<07:53, 33.83s/it] 74%|#######4  | 37/50 [20:38<07:19, 33.77s/it] 76%|#######6  | 38/50 [21:11<06:42, 33.54s/it] 78%|#######8  | 39/50 [21:44<06:08, 33.47s/it] 80%|########  | 40/50 [22:18<05:34, 33.43s/it] 82%|########2 | 41/50 [22:50<04:59, 33.26s/it] 84%|########4 | 42/50 [23:24<04:26, 33.29s/it] 86%|########6 | 43/50 [23:57<03:52, 33.20s/it] 88%|########8 | 44/50 [24:30<03:19, 33.21s/it] 90%|######### | 45/50 [25:04<02:46, 33.34s/it] 92%|#########2| 46/50 [25:37<02:13, 33.29s/it] 94%|#########3| 47/50 [26:10<01:40, 33.39s/it] 96%|#########6| 48/50 [26:44<01:06, 33.48s/it] 98%|#########8| 49/50 [27:19<00:33, 33.82s/it]100%|##########| 50/50 [27:53<00:00, 33.85s/it]100%|##########| 50/50 [27:53<00:00, 33.46s/it]
+
+ | Global Training Round : 1 |
+
+Round 1: 採択端末=[2, 4, 8, 6, 7, 5, 9, 3] (うちGroup A[0,1]: 0台)
+
+ | Global Training Round : 2 |
+
+Round 2: 採択端末=[4, 9, 7, 5, 2, 8, 6, 3] (うちGroup A[0,1]: 0台)
+ 
+Avg Training Stats after 2 global rounds:
+Training Loss : 1.9924234582483766
+Train Accuracy: 27.13% 
+
+
+ | Global Training Round : 3 |
+
+Round 3: 採択端末=[9, 2, 7, 8, 4, 3, 6, 5] (うちGroup A[0,1]: 0台)
+
+ | Global Training Round : 4 |
+
+Round 4: 採択端末=[7, 8, 6, 9, 4, 2, 5, 3] (うちGroup A[0,1]: 0台)
+ 
+Avg Training Stats after 4 global rounds:
+Training Loss : 1.8468954422697426
+Train Accuracy: 33.55% 
+
+
+ | Global Training Round : 5 |
+
+Round 5: 採択端末=[7, 8, 5, 3, 9, 4, 2, 6] (うちGroup A[0,1]: 0台)
+
+ | Global Training Round : 6 |
+
+Round 6: 採択端末=[7, 9, 6, 3, 2, 5, 8, 4] (うちGroup A[0,1]: 0台)
+ 
+Avg Training Stats after 6 global rounds:
+Training Loss : 1.7444735026856264
+Train Accuracy: 37.50% 
+
+
+ | Global Training Round : 7 |
+
+Round 7: 採択端末=[3, 8, 6, 2, 7, 0, 4, 1] (うちGroup A[0,1]: 2台)
+
+ | Global Training Round : 8 |
+
+Round 8: 採択端末=[7, 3, 8, 9, 2, 4, 5, 6] (うちGroup A[0,1]: 0台)
+ 
+Avg Training Stats after 8 global rounds:
+Training Loss : 1.6420106934272916
+Train Accuracy: 40.76% 
+
+
+ | Global Training Round : 9 |
+
+Round 9: 採択端末=[0, 1, 7, 9, 3, 8, 6, 4] (うちGroup A[0,1]: 2台)
+
+ | Global Training Round : 10 |
+
+Round 10: 採択端末=[7, 2, 9, 3, 8, 5, 4, 6] (うちGroup A[0,1]: 0台)
+ 
+Avg Training Stats after 10 global rounds:
+Training Loss : 1.5650606616230216
+Train Accuracy: 42.46% 
+
+
+ | Global Training Round : 11 |
+
+Round 11: 採択端末=[0, 1, 5, 3, 8, 6, 9, 7] (うちGroup A[0,1]: 2台)
+
+ | Global Training Round : 12 |
+
+Round 12: 採択端末=[6, 4, 8, 5, 3, 7, 9, 2] (うちGroup A[0,1]: 0台)
+ 
+Avg Training Stats after 12 global rounds:
+Training Loss : 1.5046660811389059
+Train Accuracy: 43.66% 
+
+
+ | Global Training Round : 13 |
+
+Round 13: 採択端末=[1, 0, 9, 6, 2, 3, 7, 5] (うちGroup A[0,1]: 2台)
+
+ | Global Training Round : 14 |
+
+Round 14: 採択端末=[8, 4, 9, 6, 2, 5, 7, 3] (うちGroup A[0,1]: 0台)
+ 
+Avg Training Stats after 14 global rounds:
+Training Loss : 1.45510905591929
+Train Accuracy: 44.97% 
+
+
+ | Global Training Round : 15 |
+
+Round 15: 採択端末=[1, 0, 3, 4, 6, 5, 2, 9] (うちGroup A[0,1]: 2台)
+
+ | Global Training Round : 16 |
+
+Round 16: 採択端末=[8, 7, 9, 4, 3, 2, 6, 5] (うちGroup A[0,1]: 0台)
+ 
+Avg Training Stats after 16 global rounds:
+Training Loss : 1.413379641533684
+Train Accuracy: 45.66% 
+
+
+ | Global Training Round : 17 |
+
+Round 17: 採択端末=[1, 0, 9, 7, 4, 3, 8, 5] (うちGroup A[0,1]: 2台)
+
+ | Global Training Round : 18 |
+
+Round 18: 採択端末=[2, 6, 4, 8, 9, 5, 3, 7] (うちGroup A[0,1]: 0台)
+ 
+Avg Training Stats after 18 global rounds:
+Training Loss : 1.3771647669447704
+Train Accuracy: 46.87% 
+
+
+ | Global Training Round : 19 |
+
+Round 19: 採択端末=[0, 1, 3, 2, 4, 8, 6, 7] (うちGroup A[0,1]: 2台)
+
+ | Global Training Round : 20 |
+
+Round 20: 採択端末=[5, 9, 8, 2, 6, 4, 3, 7] (うちGroup A[0,1]: 0台)
+ 
+Avg Training Stats after 20 global rounds:
+Training Loss : 1.3453398386997868
+Train Accuracy: 46.98% 
+
+
+ | Global Training Round : 21 |
+
+Round 21: 採択端末=[1, 0, 4, 7, 9, 3, 2, 8] (うちGroup A[0,1]: 2台)
+
+ | Global Training Round : 22 |
+
+Round 22: 採択端末=[6, 5, 9, 4, 2, 3, 8, 7] (うちGroup A[0,1]: 0台)
+ 
+Avg Training Stats after 22 global rounds:
+Training Loss : 1.3165700145343329
+Train Accuracy: 47.73% 
+
+
+ | Global Training Round : 23 |
+
+Round 23: 採択端末=[1, 0, 9, 8, 2, 7, 3, 6] (うちGroup A[0,1]: 2台)
+
+ | Global Training Round : 24 |
+
+Round 24: 採択端末=[4, 5, 8, 6, 9, 7, 3, 2] (うちGroup A[0,1]: 0台)
+ 
+Avg Training Stats after 24 global rounds:
+Training Loss : 1.2906703919113838
+Train Accuracy: 48.31% 
+
+
+ | Global Training Round : 25 |
+
+Round 25: 採択端末=[1, 0, 4, 8, 9, 5, 6, 2] (うちGroup A[0,1]: 2台)
+
+ | Global Training Round : 26 |
+
+Round 26: 採択端末=[7, 3, 5, 6, 8, 2, 9, 4] (うちGroup A[0,1]: 0台)
+ 
+Avg Training Stats after 26 global rounds:
+Training Loss : 1.267054808345358
+Train Accuracy: 48.92% 
+
+
+ | Global Training Round : 27 |
+
+Round 27: 採択端末=[1, 0, 9, 8, 7, 3, 5, 4] (うちGroup A[0,1]: 2台)
+
+ | Global Training Round : 28 |
+
+Round 28: 採択端末=[6, 3, 2, 9, 4, 7, 8, 5] (うちGroup A[0,1]: 0台)
+ 
+Avg Training Stats after 28 global rounds:
+Training Loss : 1.2449960589522224
+Train Accuracy: 49.43% 
+
+
+ | Global Training Round : 29 |
+
+Round 29: 採択端末=[1, 0, 2, 6, 9, 5, 7, 3] (うちGroup A[0,1]: 2台)
+
+ | Global Training Round : 30 |
+
+Round 30: 採択端末=[4, 8, 7, 9, 6, 3, 2, 5] (うちGroup A[0,1]: 0台)
+ 
+Avg Training Stats after 30 global rounds:
+Training Loss : 1.2245332680236605
+Train Accuracy: 49.59% 
+
+
+ | Global Training Round : 31 |
+
+Round 31: 採択端末=[1, 0, 6, 9, 8, 4, 5, 2] (うちGroup A[0,1]: 2台)
+
+ | Global Training Round : 32 |
+
+Round 32: 採択端末=[7, 8, 3, 4, 9, 5, 2, 6] (うちGroup A[0,1]: 0台)
+ 
+Avg Training Stats after 32 global rounds:
+Training Loss : 1.205384041882944
+Train Accuracy: 50.18% 
+
+
+ | Global Training Round : 33 |
+
+Round 33: 採択端末=[0, 1, 3, 2, 7, 6, 8, 9] (うちGroup A[0,1]: 2台)
+
+ | Global Training Round : 34 |
+
+Round 34: 採択端末=[5, 4, 7, 6, 9, 3, 8, 2] (うちGroup A[0,1]: 0台)
+ 
+Avg Training Stats after 34 global rounds:
+Training Loss : 1.1873470176467826
+Train Accuracy: 50.40% 
+
+
+ | Global Training Round : 35 |
+
+Round 35: 採択端末=[1, 0, 3, 4, 9, 6, 5, 8] (うちGroup A[0,1]: 2台)
+
+ | Global Training Round : 36 |
+
+Round 36: 採択端末=[7, 2, 4, 9, 6, 3, 5, 8] (うちGroup A[0,1]: 0台)
+ 
+Avg Training Stats after 36 global rounds:
+Training Loss : 1.1700978144403051
+Train Accuracy: 50.36% 
+
+
+ | Global Training Round : 37 |
+
+Round 37: 採択端末=[1, 0, 7, 5, 8, 3, 4, 9] (うちGroup A[0,1]: 2台)
+
+ | Global Training Round : 38 |
+
+Round 38: 採択端末=[2, 6, 7, 3, 8, 9, 4, 5] (うちGroup A[0,1]: 0台)
+ 
+Avg Training Stats after 38 global rounds:
+Training Loss : 1.1535514412653145
+Train Accuracy: 50.91% 
+
+
+ | Global Training Round : 39 |
+
+Round 39: 採択端末=[1, 0, 6, 9, 2, 4, 5, 3] (うちGroup A[0,1]: 2台)
+
+ | Global Training Round : 40 |
+
+Round 40: 採択端末=[7, 8, 6, 5, 2, 9, 4, 3] (うちGroup A[0,1]: 0台)
+ 
+Avg Training Stats after 40 global rounds:
+Training Loss : 1.1377959590185092
+Train Accuracy: 50.79% 
+
+
+ | Global Training Round : 41 |
+
+Round 41: 採択端末=[0, 1, 7, 9, 8, 2, 5, 3] (うちGroup A[0,1]: 2台)
+
+ | Global Training Round : 42 |
+
+Round 42: 採択端末=[6, 4, 7, 9, 2, 8, 5, 3] (うちGroup A[0,1]: 0台)
+ 
+Avg Training Stats after 42 global rounds:
+Training Loss : 1.1225979324114483
+Train Accuracy: 50.69% 
+
+
+ | Global Training Round : 43 |
+
+Round 43: 採択端末=[0, 1, 6, 7, 4, 9, 2, 8] (うちGroup A[0,1]: 2台)
+
+ | Global Training Round : 44 |
+
+Round 44: 採択端末=[3, 5, 6, 2, 8, 4, 7, 9] (うちGroup A[0,1]: 0台)
+ 
+Avg Training Stats after 44 global rounds:
+Training Loss : 1.108075126184366
+Train Accuracy: 51.30% 
+
+
+ | Global Training Round : 45 |
+
+Round 45: 採択端末=[0, 1, 3, 5, 9, 6, 8, 4] (うちGroup A[0,1]: 2台)
+
+ | Global Training Round : 46 |
+
+Round 46: 採択端末=[2, 7, 5, 6, 9, 3, 4, 8] (うちGroup A[0,1]: 0台)
+ 
+Avg Training Stats after 46 global rounds:
+Training Loss : 1.0939703006864683
+Train Accuracy: 51.44% 
+
+
+ | Global Training Round : 47 |
+
+Round 47: 採択端末=[0, 1, 5, 7, 9, 6, 2, 3] (うちGroup A[0,1]: 2台)
+
+ | Global Training Round : 48 |
+
+Round 48: 採択端末=[4, 8, 2, 3, 9, 6, 5, 7] (うちGroup A[0,1]: 0台)
+ 
+Avg Training Stats after 48 global rounds:
+Training Loss : 1.0803703102031765
+Train Accuracy: 51.85% 
+
+
+ | Global Training Round : 49 |
+
+Round 49: 採択端末=[1, 0, 6, 8, 4, 7, 2, 9] (うちGroup A[0,1]: 2台)
+
+ | Global Training Round : 50 |
+
+Round 50: 採択端末=[5, 3, 6, 4, 2, 7, 8, 9] (うちGroup A[0,1]: 0台)
+ 
+Avg Training Stats after 50 global rounds:
+Training Loss : 1.0673549388943764
+Train Accuracy: 51.76% 
+
+ 
+ Results after 50 global rounds of training:
+|---- Avg Train Accuracy: 51.76%
+|---- Test Accuracy: 51.76%
+
+ Total Run Time: 1677.7598
