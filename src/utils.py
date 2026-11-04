@@ -3,11 +3,36 @@
 # Python version: 3.6
 
 import copy
+import numpy as np 
 import torch
 from torchvision import datasets, transforms
 from sampling import mnist_iid, mnist_noniid, mnist_noniid_unequal
 from sampling import cifar_iid, cifar_noniid
 
+def reduce_dataset(dataset, r):
+    """
+    学習用データを、各クラスから割合 r だけ残して減らす（クラスごとの枚数の比率は変えない）。
+    例: CIFAR-10 の学習用 50,000 枚で r=0.1 なら、各クラス 500 枚ずつ、合計 5,000 枚になる。
+    どの画像を残すかは np.random で決めるので、--seed が同じなら同じ画像が残る。
+    """
+    if r >= 1.0:
+        return dataset
+    labels = np.asarray(dataset.targets)
+    keep = []
+    for c in np.unique(labels):
+        idx = np.where(labels == c)[0]
+        n = max(1, int(round(len(idx) * r)))
+        keep.append(np.random.choice(idx, n, replace=False))
+    keep = np.sort(np.concatenate(keep))
+    if torch.is_tensor(dataset.data):
+        dataset.data = dataset.data[torch.as_tensor(keep)]
+    else:
+        dataset.data = dataset.data[keep]
+    if torch.is_tensor(dataset.targets):
+        dataset.targets = dataset.targets[torch.as_tensor(keep)]
+    else:
+        dataset.targets = [dataset.targets[i] for i in keep]
+    return dataset
 
 def get_dataset(args):
     """ Returns train and test datasets and a user group which is a dict where
@@ -26,7 +51,8 @@ def get_dataset(args):
 
         test_dataset = datasets.CIFAR10(data_dir, train=False, download=True,
                                       transform=apply_transform)
-
+        #--rで学習用データを減らす（テストデータは減らさない）
+        train_dataset = reduce_dataset(train_dataset, getattr(args, 'r', 1.0))
         # sample training data amongst users
         if args.iid:
             # Sample IID user data from Mnist

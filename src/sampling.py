@@ -52,36 +52,33 @@ def mnist_noniid(dataset, num_users):
                 (dict_users[i], idxs[rand*num_imgs:(rand+1)*num_imgs]), axis=0)
     return dict_users
 '''
-#少数のクライアントに0,1のみを、残りのクライアントに2~9を割り振る関数
-def mnist_noniid(dataset, num_users, minority_ratio=0.2):
-    dict_users = {i: np.array([], dtype='int64') for i in range(num_users)}
-    #ラベルの取得
-    if isinstance(dataset.targets, torch.Tensor):
-        labels = dataset.targets.numpy()
-    elif hasattr(dataset, 'train_labels'):
-        labels = dataset.train_labels.numpy() if isinstance(dataset.train_labels, torch.Tensor) else np.array(dataset.train_labels)
-    else:
-        labels = np.array(dataset.targets)
-    # 各グループのクライアント数を算出
-    num_minority_users = int(num_users * minority_ratio)
-    minority_users = list(range(num_minority_users))
-    majority_users = list(range(num_minority_users, num_users))
-    # インデックスを「0, 1」と「2〜9」に分離
-    idxs_01 = np.where((labels == 0) | (labels == 1))[0]
-    idxs_rest = np.where((labels >= 2) & (labels <= 9))[0]
-    # シャッフル
-    np.random.shuffle(idxs_01)
-    np.random.shuffle(idxs_rest)
-    #0,1の割り当て
-    split_01 = np.array_split(idxs_01, len(minority_users))
-    for i, user_id in enumerate(minority_users):
-        dict_users[user_id] = split_01[i]
-
-    #2~9への割り当て
-    split_rest = np.array_split(idxs_rest, len(majority_users))
-    for i, user_id in enumerate(majority_users):
-        dict_users[user_id] = split_rest[i]
+#クラスを2つずつの5グループ（0,1/2,3/4,5/6,7/8,9）に分けるnon-iid
+def pair_noniid(dataset, num_users, num_groups=5):
+    #端末uには「グループu%5」の画像だけ配る
+    #ラベルを取り出す
+    labels = np.asarray(dataset.targets)
+    # 1グループあたりのクラス数（10クラスなら2）
+    num_classes = int(labels.max()) + 1
+    per_group = num_classes // num_groups
+    #端末数が5台以下だったらエラー
+    if num_users < num_groups:
+        raise ValueError(f'num_users は {num_groups} 以上にしてください（今は {num_users}）')
+    #グループ0～4について順に処理する
+    dict_users = {}
+    for g in range(num_groups):
+        group_classes = list(range(g * per_group, (g + 1) * per_group))
+        idxs = np.where(np.isin(labels, group_classes))[0]
+        # 端末内でクラスが混ざるように
+        np.random.shuffle(idxs)
+        users = [u for u in range(num_users) if u % num_groups == g]
+        for u, part in zip(users, np.array_split(idxs, len(users))):
+            dict_users[u] = part
     return dict_users
+ 
+ 
+def mnist_noniid(dataset, num_users):
+    # non-iid のときは、5ペアの分け方（pair_noniid）を使う
+    return pair_noniid(dataset, num_users)
 
 def mnist_noniid_unequal(dataset, num_users):
     """

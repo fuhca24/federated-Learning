@@ -1,0 +1,371 @@
+
+Experimental details:
+    Model     : cnn
+    Optimizer : sgd
+    Learning  : 0.01
+    Global Rounds   : 50
+
+    Federated parameters:
+    Non-IID
+    Fraction of users  : 1.0
+    Local Batch size   : 10
+    Local Epochs       : 1
+
+    Number of users    : 5
+    Data ratio (r)     : 0.5
+    q_frac             : 0.6
+
+Files already downloaded and verified
+Files already downloaded and verified
+
+========================================
+学習用データ: 25000 枚 / テストデータ: 10000 枚
+User 0 の所持クラス: {0: 2500, 1: 2500}
+User 1 の所持クラス: {2: 2500, 3: 2500}
+User 4 の所持クラス: {8: 2500, 9: 2500}
+========================================
+
+CNNCifar(
+  (conv1): Conv2d(3, 6, kernel_size=(5, 5), stride=(1, 1))
+  (pool): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  (conv2): Conv2d(6, 16, kernel_size=(5, 5), stride=(1, 1))
+  (fc1): Linear(in_features=400, out_features=120, bias=True)
+  (fc2): Linear(in_features=120, out_features=84, bias=True)
+  (fc3): Linear(in_features=84, out_features=10, bias=True)
+)
+毎ラウンドの候補端末: 5 台 / そのうち集約に使う端末: 3 台
+
+  0%|          | 0/50 [00:00<?, ?it/s]
+ | Global Training Round : 1 |
+
+C:\Users\fuhca\federated-Learning\src\update.py:23: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  return torch.tensor(image), torch.tensor(label)
+Round 1: 採択端末(番号:持っているクラス)=['3:[6, 7]', '4:[8, 9]', '0:[0, 1]'] cos=[0.56, 0.537, 0.524]
+  2%|2         | 1/50 [00:19<15:37, 19.13s/it]
+ | Global Training Round : 2 |
+
+Round 2: 採択端末(番号:持っているクラス)=['2:[4, 5]', '3:[6, 7]', '4:[8, 9]'] cos=[0.505, 0.473, 0.416]
+ 
+Avg Training Stats after 2 global rounds:
+Training Loss : 0.7041552382335068
+Train Accuracy: 16.17% 
+
+  4%|4         | 2/50 [00:37<15:06, 18.88s/it]
+ | Global Training Round : 3 |
+
+Round 3: 採択端末(番号:持っているクラス)=['1:[2, 3]', '0:[0, 1]', '3:[6, 7]'] cos=[0.537, 0.53, 0.397]
+  6%|6         | 3/50 [00:56<14:39, 18.71s/it]
+ | Global Training Round : 4 |
+
+Round 4: 採択端末(番号:持っているクラス)=['2:[4, 5]', '4:[8, 9]', '1:[2, 3]'] cos=[0.566, 0.472, 0.445]
+ 
+Avg Training Stats after 4 global rounds:
+Training Loss : 0.6450424653245137
+Train Accuracy: 15.51% 
+
+  8%|8         | 4/50 [01:14<14:06, 18.40s/it]
+ | Global Training Round : 5 |
+
+Round 5: 採択端末(番号:持っているクラス)=['0:[0, 1]', '3:[6, 7]', '2:[4, 5]'] cos=[0.569, 0.465, 0.378]
+ 10%|#         | 5/50 [01:32<13:37, 18.16s/it]
+ | Global Training Round : 6 |
+
+Round 6: 採択端末(番号:持っているクラス)=['4:[8, 9]', '1:[2, 3]', '0:[0, 1]'] cos=[0.574, 0.531, 0.352]
+ 
+Avg Training Stats after 6 global rounds:
+Training Loss : 0.5941216873056773
+Train Accuracy: 23.42% 
+
+ 12%|#2        | 6/50 [01:49<13:12, 18.01s/it]
+ | Global Training Round : 7 |
+
+Round 7: 採択端末(番号:持っているクラス)=['2:[4, 5]', '3:[6, 7]', '4:[8, 9]'] cos=[0.543, 0.492, 0.402]
+ 14%|#4        | 7/50 [02:07<12:50, 17.92s/it]
+ | Global Training Round : 8 |
+
+Round 8: 採択端末(番号:持っているクラス)=['0:[0, 1]', '1:[2, 3]', '4:[8, 9]'] cos=[0.528, 0.473, 0.311]
+ 
+Avg Training Stats after 8 global rounds:
+Training Loss : 0.559089473868371
+Train Accuracy: 23.47% 
+
+ 16%|#6        | 8/50 [02:25<12:30, 17.88s/it]
+ | Global Training Round : 9 |
+
+Round 9: 採択端末(番号:持っているクラス)=['3:[6, 7]', '2:[4, 5]', '4:[8, 9]'] cos=[0.543, 0.524, 0.278]
+ 18%|#8        | 9/50 [02:43<12:18, 18.02s/it]
+ | Global Training Round : 10 |
+
+Round 10: 採択端末(番号:持っているクラス)=['0:[0, 1]', '1:[2, 3]', '3:[6, 7]'] cos=[0.547, 0.514, 0.33]
+ 
+Avg Training Stats after 10 global rounds:
+Training Loss : 0.5308192627821119
+Train Accuracy: 28.79% 
+
+ 20%|##        | 10/50 [03:01<11:58, 17.96s/it]
+ | Global Training Round : 11 |
+
+Round 11: 採択端末(番号:持っているクラス)=['4:[8, 9]', '2:[4, 5]', '0:[0, 1]'] cos=[0.585, 0.547, 0.292]
+ 22%|##2       | 11/50 [03:20<11:50, 18.22s/it]
+ | Global Training Round : 12 |
+
+Round 12: 採択端末(番号:持っているクラス)=['3:[6, 7]', '1:[2, 3]', '4:[8, 9]'] cos=[0.575, 0.535, 0.266]
+ 
+Avg Training Stats after 12 global rounds:
+Training Loss : 0.5102601595735178
+Train Accuracy: 29.26% 
+
+ 24%|##4       | 12/50 [03:38<11:30, 18.18s/it]
+ | Global Training Round : 13 |
+
+Round 13: 採択端末(番号:持っているクラス)=['0:[0, 1]', '2:[4, 5]', '4:[8, 9]'] cos=[0.567, 0.523, 0.26]
+ 26%|##6       | 13/50 [03:56<11:09, 18.11s/it]
+ | Global Training Round : 14 |
+
+Round 14: 採択端末(番号:持っているクラス)=['3:[6, 7]', '1:[2, 3]', '0:[0, 1]'] cos=[0.557, 0.51, 0.283]
+ 
+Avg Training Stats after 14 global rounds:
+Training Loss : 0.4923987811103109
+Train Accuracy: 32.15% 
+
+ 28%|##8       | 14/50 [04:14<10:49, 18.05s/it]
+ | Global Training Round : 15 |
+
+Round 15: 採択端末(番号:持っているクラス)=['4:[8, 9]', '2:[4, 5]', '3:[6, 7]'] cos=[0.56, 0.556, 0.242]
+ 30%|###       | 15/50 [04:32<10:30, 18.01s/it]
+ | Global Training Round : 16 |
+
+Round 16: 採択端末(番号:持っているクラス)=['0:[0, 1]', '1:[2, 3]', '4:[8, 9]'] cos=[0.558, 0.51, 0.257]
+ 
+Avg Training Stats after 16 global rounds:
+Training Loss : 0.4766549451358636
+Train Accuracy: 28.11% 
+
+ 32%|###2      | 16/50 [04:50<10:14, 18.06s/it]
+ | Global Training Round : 17 |
+
+Round 17: 採択端末(番号:持っているクラス)=['2:[4, 5]', '3:[6, 7]', '0:[0, 1]'] cos=[0.545, 0.506, 0.291]
+ 34%|###4      | 17/50 [05:08<09:54, 18.01s/it]
+ | Global Training Round : 18 |
+
+Round 18: 採択端末(番号:持っているクラス)=['4:[8, 9]', '1:[2, 3]', '3:[6, 7]'] cos=[0.578, 0.535, 0.272]
+ 
+Avg Training Stats after 18 global rounds:
+Training Loss : 0.46214794722471936
+Train Accuracy: 31.46% 
+
+ 36%|###6      | 18/50 [05:26<09:35, 17.98s/it]
+ | Global Training Round : 19 |
+
+Round 19: 採択端末(番号:持っているクラス)=['0:[0, 1]', '2:[4, 5]', '4:[8, 9]'] cos=[0.554, 0.536, 0.253]
+ 38%|###8      | 19/50 [05:44<09:19, 18.05s/it]
+ | Global Training Round : 20 |
+
+Round 20: 採択端末(番号:持っているクラス)=['3:[6, 7]', '1:[2, 3]', '0:[0, 1]'] cos=[0.54, 0.519, 0.264]
+ 
+Avg Training Stats after 20 global rounds:
+Training Loss : 0.4495608438651931
+Train Accuracy: 32.98% 
+
+ 40%|####      | 20/50 [06:02<09:00, 18.00s/it]
+ | Global Training Round : 21 |
+
+Round 21: 採択端末(番号:持っているクラス)=['4:[8, 9]', '2:[4, 5]', '0:[0, 1]'] cos=[0.555, 0.539, 0.247]
+ 42%|####2     | 21/50 [06:20<08:42, 18.00s/it]
+ | Global Training Round : 22 |
+
+Round 22: 採択端末(番号:持っているクラス)=['3:[6, 7]', '1:[2, 3]', '0:[0, 1]'] cos=[0.556, 0.508, 0.241]
+ 
+Avg Training Stats after 22 global rounds:
+Training Loss : 0.43802838601328964
+Train Accuracy: 34.28% 
+
+ 44%|####4     | 22/50 [06:38<08:25, 18.05s/it]
+ | Global Training Round : 23 |
+
+Round 23: 採択端末(番号:持っているクラス)=['2:[4, 5]', '4:[8, 9]', '1:[2, 3]'] cos=[0.531, 0.525, 0.252]
+ 46%|####6     | 23/50 [06:56<08:08, 18.08s/it]
+ | Global Training Round : 24 |
+
+Round 24: 採択端末(番号:持っているクラス)=['0:[0, 1]', '3:[6, 7]', '4:[8, 9]'] cos=[0.525, 0.525, 0.275]
+ 
+Avg Training Stats after 24 global rounds:
+Training Loss : 0.42755558764966234
+Train Accuracy: 33.95% 
+
+ 48%|####8     | 24/50 [07:14<07:53, 18.20s/it]
+ | Global Training Round : 25 |
+
+Round 25: 採択端末(番号:持っているクラス)=['2:[4, 5]', '1:[2, 3]', '3:[6, 7]'] cos=[0.52, 0.505, 0.248]
+ 50%|#####     | 25/50 [07:33<07:34, 18.16s/it]
+ | Global Training Round : 26 |
+
+Round 26: 採択端末(番号:持っているクラス)=['0:[0, 1]', '4:[8, 9]', '1:[2, 3]'] cos=[0.538, 0.523, 0.29]
+ 
+Avg Training Stats after 26 global rounds:
+Training Loss : 0.4208267499414348
+Train Accuracy: 31.86% 
+
+ 52%|#####2    | 26/50 [07:50<07:13, 18.07s/it]
+ | Global Training Round : 27 |
+
+Round 27: 採択端末(番号:持っているクラス)=['2:[4, 5]', '3:[6, 7]', '0:[0, 1]'] cos=[0.567, 0.513, 0.298]
+ 54%|#####4    | 27/50 [08:08<06:54, 18.01s/it]
+ | Global Training Round : 28 |
+
+Round 28: 採択端末(番号:持っているクラス)=['4:[8, 9]', '1:[2, 3]', '3:[6, 7]'] cos=[0.582, 0.505, 0.26]
+ 
+Avg Training Stats after 28 global rounds:
+Training Loss : 0.41143254593696227
+Train Accuracy: 33.71% 
+
+ 56%|#####6    | 28/50 [08:26<06:35, 17.96s/it]
+ | Global Training Round : 29 |
+
+Round 29: 採択端末(番号:持っているクラス)=['2:[4, 5]', '0:[0, 1]', '1:[2, 3]'] cos=[0.548, 0.547, 0.277]
+ 58%|#####8    | 29/50 [08:44<06:16, 17.92s/it]
+ | Global Training Round : 30 |
+
+Round 30: 採択端末(番号:持っているクラス)=['4:[8, 9]', '3:[6, 7]', '0:[0, 1]'] cos=[0.59, 0.505, 0.311]
+ 
+Avg Training Stats after 30 global rounds:
+Training Loss : 0.402581990612577
+Train Accuracy: 34.43% 
+
+ 60%|######    | 30/50 [09:02<05:58, 17.92s/it]
+ | Global Training Round : 31 |
+
+Round 31: 採択端末(番号:持っているクラス)=['2:[4, 5]', '1:[2, 3]', '0:[0, 1]'] cos=[0.562, 0.519, 0.29]
+ 62%|######2   | 31/50 [09:20<05:39, 17.87s/it]
+ | Global Training Round : 32 |
+
+Round 32: 採択端末(番号:持っているクラス)=['4:[8, 9]', '3:[6, 7]', '1:[2, 3]'] cos=[0.596, 0.496, 0.315]
+ 
+Avg Training Stats after 32 global rounds:
+Training Loss : 0.3970720084752581
+Train Accuracy: 33.07% 
+
+ 64%|######4   | 32/50 [09:38<05:22, 17.90s/it]
+ | Global Training Round : 33 |
+
+Round 33: 採択端末(番号:持っているクラス)=['2:[4, 5]', '0:[0, 1]', '3:[6, 7]'] cos=[0.573, 0.513, 0.28]
+ 66%|######6   | 33/50 [09:56<05:04, 17.91s/it]
+ | Global Training Round : 34 |
+
+Round 34: 採択端末(番号:持っているクラス)=['4:[8, 9]', '1:[2, 3]', '0:[0, 1]'] cos=[0.551, 0.503, 0.28]
+ 
+Avg Training Stats after 34 global rounds:
+Training Loss : 0.3889479068256018
+Train Accuracy: 33.69% 
+
+ 68%|######8   | 34/50 [10:13<04:46, 17.89s/it]
+ | Global Training Round : 35 |
+
+Round 35: 採択端末(番号:持っているクラス)=['2:[4, 5]', '3:[6, 7]', '1:[2, 3]'] cos=[0.538, 0.489, 0.311]
+ 70%|#######   | 35/50 [10:32<04:33, 18.25s/it]
+ | Global Training Round : 36 |
+
+Round 36: 採択端末(番号:持っているクラス)=['4:[8, 9]', '0:[0, 1]', '1:[2, 3]'] cos=[0.585, 0.515, 0.325]
+ 
+Avg Training Stats after 36 global rounds:
+Training Loss : 0.38351011231285353
+Train Accuracy: 33.47% 
+
+ 72%|#######2  | 36/50 [10:50<04:13, 18.14s/it]
+ | Global Training Round : 37 |
+
+Round 37: 採択端末(番号:持っているクラス)=['2:[4, 5]', '3:[6, 7]', '0:[0, 1]'] cos=[0.546, 0.506, 0.317]
+ 74%|#######4  | 37/50 [11:08<03:54, 18.06s/it]
+ | Global Training Round : 38 |
+
+Round 38: 採択端末(番号:持っているクラス)=['4:[8, 9]', '1:[2, 3]', '0:[0, 1]'] cos=[0.544, 0.515, 0.297]
+ 
+Avg Training Stats after 38 global rounds:
+Training Loss : 0.3759721351253584
+Train Accuracy: 33.85% 
+
+ 76%|#######6  | 38/50 [11:26<03:35, 17.98s/it]
+ | Global Training Round : 39 |
+
+Round 39: 採択端末(番号:持っているクラス)=['2:[4, 5]', '3:[6, 7]', '0:[0, 1]'] cos=[0.54, 0.496, 0.334]
+ 78%|#######8  | 39/50 [11:44<03:18, 18.01s/it]
+ | Global Training Round : 40 |
+
+Round 40: 採択端末(番号:持っているクラス)=['1:[2, 3]', '4:[8, 9]', '0:[0, 1]'] cos=[0.55, 0.526, 0.293]
+ 
+Avg Training Stats after 40 global rounds:
+Training Loss : 0.36879931948581124
+Train Accuracy: 34.64% 
+
+ 80%|########  | 40/50 [12:02<02:59, 17.99s/it]
+ | Global Training Round : 41 |
+
+Round 41: 採択端末(番号:持っているクラス)=['3:[6, 7]', '2:[4, 5]', '1:[2, 3]'] cos=[0.532, 0.513, 0.319]
+ 82%|########2 | 41/50 [12:20<02:41, 17.93s/it]
+ | Global Training Round : 42 |
+
+Round 42: 採択端末(番号:持っているクラス)=['4:[8, 9]', '0:[0, 1]', '1:[2, 3]'] cos=[0.568, 0.477, 0.34]
+ 
+Avg Training Stats after 42 global rounds:
+Training Loss : 0.36369310840921476
+Train Accuracy: 33.53% 
+
+ 84%|########4 | 42/50 [12:39<02:25, 18.17s/it]
+ | Global Training Round : 43 |
+
+Round 43: 採択端末(番号:持っているクラス)=['2:[4, 5]', '3:[6, 7]', '1:[2, 3]'] cos=[0.526, 0.477, 0.318]
+ 86%|########6 | 43/50 [12:56<02:06, 18.10s/it]
+ | Global Training Round : 44 |
+
+Round 44: 採択端末(番号:持っているクラス)=['0:[0, 1]', '4:[8, 9]', '1:[2, 3]'] cos=[0.522, 0.511, 0.325]
+ 
+Avg Training Stats after 44 global rounds:
+Training Loss : 0.3587295878769025
+Train Accuracy: 35.78% 
+
+ 88%|########8 | 44/50 [13:15<01:49, 18.17s/it]
+ | Global Training Round : 45 |
+
+Round 45: 採択端末(番号:持っているクラス)=['2:[4, 5]', '3:[6, 7]', '1:[2, 3]'] cos=[0.505, 0.477, 0.333]
+ 90%|######### | 45/50 [13:33<01:30, 18.10s/it]
+ | Global Training Round : 46 |
+
+Round 46: 採択端末(番号:持っているクラス)=['4:[8, 9]', '0:[0, 1]', '1:[2, 3]'] cos=[0.516, 0.512, 0.324]
+ 
+Avg Training Stats after 46 global rounds:
+Training Loss : 0.3536948565653175
+Train Accuracy: 35.76% 
+
+ 92%|#########2| 46/50 [13:51<01:12, 18.15s/it]
+ | Global Training Round : 47 |
+
+Round 47: 採択端末(番号:持っているクラス)=['2:[4, 5]', '3:[6, 7]', '0:[0, 1]'] cos=[0.507, 0.474, 0.344]
+ 94%|#########3| 47/50 [14:09<00:54, 18.11s/it]
+ | Global Training Round : 48 |
+
+Round 48: 採択端末(番号:持っているクラス)=['4:[8, 9]', '1:[2, 3]', '3:[6, 7]'] cos=[0.56, 0.55, 0.301]
+ 
+Avg Training Stats after 48 global rounds:
+Training Loss : 0.34749721691386287
+Train Accuracy: 35.66% 
+
+ 96%|#########6| 48/50 [14:27<00:36, 18.08s/it]
+ | Global Training Round : 49 |
+
+Round 49: 採択端末(番号:持っているクラス)=['0:[0, 1]', '2:[4, 5]', '1:[2, 3]'] cos=[0.571, 0.54, 0.393]
+ 98%|#########8| 49/50 [14:45<00:17, 18.00s/it]
+ | Global Training Round : 50 |
+
+Round 50: 採択端末(番号:持っているクラス)=['3:[6, 7]', '4:[8, 9]', '1:[2, 3]'] cos=[0.538, 0.536, 0.379]
+ 
+Avg Training Stats after 50 global rounds:
+Training Loss : 0.34271955397967635
+Train Accuracy: 36.47% 
+
+100%|##########| 50/50 [15:03<00:00, 17.93s/it]100%|##########| 50/50 [15:03<00:00, 18.06s/it]
+ 
+ Results after 50 global rounds of training:
+|---- Avg Train Accuracy: 36.47%
+|---- Test Accuracy: 36.47%
+
+ Total Run Time: 907.7868

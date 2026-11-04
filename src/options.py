@@ -60,5 +60,9 @@ def args_parser():
                         help='rounds of early stopping')
     parser.add_argument('--verbose', type=int, default=1, help='verbose')
     parser.add_argument('--seed', type=int, default=1, help='random seed')
+    parser.add_argument('--r', type=float, default=1.0,
+                        help='学習用データを何割使うか（例: 0.1 で1割。テストデータは減らさない）')
+    parser.add_argument('--q_frac', type=float, default=0.3,
+                        help='FedGSCS で候補端末のうち上位何割を集約に使うか')
     args = parser.parse_args()
     return args
