@@ -28,6 +28,21 @@ from models import MLP, CNNMnist, CNNFashion_Mnist, CNNCifar
 from utils import get_dataset, average_weights, exp_details
 
 
+def evaluate_per_class(model, dataset, device, num_classes):
+    """テストデータで、クラスごとの正解率（0〜1）を計算する"""
+    model.eval()
+    correct = np.zeros(num_classes)
+    total = np.zeros(num_classes)
+    loader = torch.utils.data.DataLoader(dataset, batch_size=256, shuffle=False)
+    with torch.no_grad():
+        for images, labels in loader:
+            pred = model(images.to(device)).argmax(dim=1).cpu().numpy()
+            y = labels.numpy()
+            total += np.bincount(y, minlength=num_classes)
+            correct += np.bincount(y[pred == y], minlength=num_classes)
+    return (correct / np.maximum(total, 1)).tolist()
+
+
 if __name__ == '__main__':
     start_time = time.time()
 
@@ -106,6 +121,7 @@ if __name__ == '__main__':
     train_loss, train_accuracy = [], []
     test_loss_hist = []   # ラウンドごとのテスト損失
     selected_hist = []    # ラウンドごとに集約に使った端末の番号
+    cos_hist = []         # [追加] ラウンドごとの {端末番号: コサイン類似度}（候補になった全端末）
     print_every = 2
 
     # 候補端末数 m と採用数 q は毎ラウンド同じ値なので、ループの外で1回だけ計算する
@@ -155,6 +171,7 @@ if __name__ == '__main__':
         top_q_indices = torch.topk(torch.tensor(cos_scores), k=q).indices.tolist()
         selected_real_users = [int(idxs_users[i]) for i in top_q_indices]
         selected_hist.append(selected_real_users)
+        cos_hist.append({int(idxs_users[i]): float(cos_scores[i]) for i in range(len(idxs_users))})
         info = [f'{u}:{user_classes[u]}' if len(user_classes[u]) <= 3 else str(u)
                 for u in selected_real_users]
         print(f"Round {epoch+1}: 採択端末(番号:持っているクラス)={info} "
@@ -196,18 +213,23 @@ if __name__ == '__main__':
 
     # Test inference after completion of training（訓練終了後、テストデータを使った推論評価）
     test_acc, test_loss = test_inference(args, global_model, test_dataset)
+    # [追加] 最終ラウンドのモデルで、クラスごとの精度を計算する
+    class_acc = evaluate_per_class(global_model, test_dataset, device, args.num_classes)
 
     print(f' \n Results after {args.epochs} global rounds of training:')
     print("|---- Avg Train Accuracy: {:.2f}%".format(100*train_accuracy[-1]))
     print("|---- Test Accuracy: {:.2f}%".format(100*test_acc))
+    print("|---- クラスごとの精度: " + ", ".join(f"{c}: {100*a:.1f}%" for c, a in enumerate(class_acc)))
 
-    # 保存：[学習損失, テスト精度, テスト損失, 集約に使った端末]
+    # 保存：[0 学習損失, 1 テスト精度, 2 テスト損失, 3 集約に使った端末, 4 コサイン類似度,
+    #        5 最終ラウンドのクラスごとの精度, 6 各端末が持っているクラス]
     # ファイル名に端末数 N、データの割合 R、採用割合 Q、シードを入れて、条件ごとに別のファイルにする
     os.makedirs('./save/objects', exist_ok=True)
     file_name = ('./save/objects/FedGSCS_{}_{}_{}_C[{}]_iid[{}]_E[{}]_B[{}]_N[{}]_R[{}]_Q[{}]_seed[{}].pkl'
                  .format(args.dataset, args.model, args.epochs, args.frac, args.iid,
                          args.local_ep, args.local_bs, args.num_users, r, q_frac, args.seed))
     with open(file_name, 'wb') as f:
-        pickle.dump([train_loss, train_accuracy, test_loss_hist, selected_hist], f)
+        pickle.dump([train_loss, train_accuracy, test_loss_hist, selected_hist,
+                     cos_hist, class_acc, user_classes], f)
 
     print('\n Total Run Time: {0:0.4f}'.format(time.time()-start_time))

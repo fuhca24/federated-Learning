@@ -11,6 +11,10 @@
 #                 右 = 最終精度（最後の5ラウンドの平均）をシードごとに点で、平均を横線で表示
 #   損失のグラフ（..._loss.png）: テスト損失が保存されている結果のときだけ
 #   それぞれの平均・標準偏差の CSV
+#   クラスごとの精度のグラフ（..._class_acc.png）: 最終ラウンドのモデルの、クラス0〜9それぞれの精度
+#   ./save/tables_.../ フォルダ: 毎ラウンドのコサイン類似度の表と、各端末が選ばれた回数の表
+#     （CSV と、選ばれた値に色を付けた Excel ファイル。Excel は openpyxl が入っているときだけ）
+#   ※ クラスごとの精度と表は、それらを記録するようにした新しい main で実行した結果のときだけ作ります
 # 日本語フォントが無い環境でも文字化けしないよう、グラフ内の表記は英語にしています。
 
 import os
@@ -62,7 +66,7 @@ def result_path(iid, seed):
 # ---- 読み込み ----
 data = {}
 for iid, label, _ in CONDITIONS:
-    accs, losses, used = [], [], []
+    accs, losses, used, raws = [], [], [], []
     for s in seeds:
         path = result_path(iid, s)
         if not os.path.exists(path):
@@ -73,10 +77,11 @@ for iid, label, _ in CONDITIONS:
         accs.append(np.array(loaded[1], dtype=float) * 100)   # [学習損失, テスト精度, テスト損失, 集約した端末]
         losses.append(np.array(loaded[2], dtype=float) if len(loaded) >= 3 else None)
         used.append(s)
+        raws.append(loaded)
     if not accs:
         exit(f'{label} の結果が1つもありません。iid_vs_noniid.py と同じオプションか確認してください')
     n_round = min(len(a) for a in accs)
-    data[label] = {'acc': np.stack([a[:n_round] for a in accs]), 'seeds': used,
+    data[label] = {'acc': np.stack([a[:n_round] for a in accs]), 'seeds': used, 'raw': raws,
                    'loss': (np.stack([l[:n_round] for l in losses])
                             if all(l is not None for l in losses) else None)}
 
@@ -219,3 +224,178 @@ if all(data[label]['loss'] is not None for label in data):
     print(f'損失の数値を保存しました:   {csv_loss}')
 else:
     print('\n※ 損失のグラフは作りませんでした。テスト損失が入っていない（古い版で実行した）結果が含まれています。')
+
+
+# ======================================================================
+# 追加：クラスごとの精度（最終ラウンド）と、コサイン類似度・選ばれた回数の表
+# ======================================================================
+CIFAR_NAMES = ['airplane', 'automobile', 'bird', 'cat', 'deer',
+               'dog', 'frog', 'horse', 'ship', 'truck']
+
+
+def fmt_range(nums):
+    """[0,1,2,3,4] → '0-4'、[0,2,5] → '0,2,5' のように短く書く"""
+    nums = sorted(nums)
+    if len(nums) > 2 and nums == list(range(nums[0], nums[-1] + 1)):
+        return f'{nums[0]}-{nums[-1]}'
+    return ','.join(map(str, nums))
+
+
+def describe_split(user_classes):
+    """'clients 0-7: classes 0-4 | clients 8-9: classes 5-9' のような説明を作る"""
+    groups = {}
+    for u in sorted(user_classes):
+        groups.setdefault(tuple(user_classes[u]), []).append(u)
+    return ' | '.join(f'clients {fmt_range(us)}: classes {fmt_range(list(c))}'
+                      for c, us in sorted(groups.items(), key=lambda kv: kv[1][0]))
+
+
+has_class_acc = all(len(raw) >= 7 for l in data for raw in data[l]['raw'])
+has_cos = all(len(raw) >= 5 for l in data for raw in data[l]['raw'])
+if not (has_class_acc and has_cos):
+    print('\n※ クラスごとの精度と、コサイン類似度の表は作りませんでした。'
+          '\n  それらを記録するようにした新しい federated_main_FedGSCS.py で実行し直した結果が必要です。')
+
+# ---- クラスごとの精度のグラフ（最終ラウンド）----
+if has_class_acc:
+    nc = args.num_classes
+    fig3, ax = plt.subplots(figsize=(11, 5.4), facecolor=BG)
+    width = 0.38
+    rows = []
+    print('\n---------- 最終ラウンドのクラスごとの精度 ----------')
+    for k, (iid, label, color) in enumerate(CONDITIONS):
+        ca = np.array([raw[5] for raw in data[label]['raw']], dtype=float) * 100   # シード × クラス
+        mean = ca.mean(axis=0)
+        sd = ca.std(axis=0, ddof=1) if ca.shape[0] > 1 else np.zeros(nc)
+        x = np.arange(nc) + (k - 0.5) * width
+        ax.bar(x, mean, width * 0.92, color=color, label=f'{label} (n={ca.shape[0]})', zorder=3)
+        if ca.shape[0] > 1:
+            ax.errorbar(x, mean, yerr=sd, fmt='none', ecolor=INK, elinewidth=1, capsize=3, zorder=4)
+        for xi, v, e in zip(x, mean, sd):
+            ax.annotate(f'{v:.0f}', (xi, v + e), xytext=(0, 2), textcoords='offset points',
+                        ha='center', va='bottom', fontsize=7, color=INK)
+        rows.append((label, mean, sd))
+        print(f'{label:8s}: ' + '  '.join(f'{c}:{m:5.1f}%' for c, m in enumerate(mean)))
+    ticks = [f'{c}\n{CIFAR_NAMES[c]}' if args.dataset == 'cifar' else str(c) for c in range(nc)]
+    ax.set_xticks(np.arange(nc))
+    ax.set_xticklabels(ticks, fontsize=9)
+    ax.set_xlabel('Class')
+    ax.set_ylabel('Test accuracy (%)')
+    ax.set_ylim(0, 110)
+    ax.set_yticks(range(0, 101, 20))
+    ax.grid(axis='y', color=GRID, lw=0.8, zorder=0)
+    hide_top_right(ax)
+    ax.legend(frameon=False, loc='upper right', ncol=2)
+    ax.set_facecolor(BG)
+    n_round = len(data['IID']['acc'][0])
+    ax.set_title(f'FedGSCS per-class test accuracy at the final round (round {n_round}), '
+                 f'mean{" ± 1 SD" if len(seeds) > 1 else ""} across seeds', loc='left', color=INK, fontsize=11)
+    split_text = 'Non-IID split: ' + describe_split(data['Non-IID']['raw'][0][6])
+    fig3.text(0.01, 0.045, split_text, color=INK, fontsize=8.5, ha='left', va='bottom')
+    fig3.text(0.01, 0.01, title_conf, color=MUTED, fontsize=8, ha='left', va='bottom')
+    fig3.tight_layout(rect=(0, 0.08, 1, 1))
+    png_cls = f'./save/FedGSCS_iid_vs_noniid_{tag}_class_acc.png'
+    fig3.savefig(png_cls, dpi=150)
+    csv_cls = f'./save/FedGSCS_iid_vs_noniid_{tag}_class_acc.csv'
+    with open(csv_cls, 'w', newline='', encoding='utf-8-sig') as f:
+        w = csv.writer(f)
+        w.writerow(['class', 'name', 'IID_mean', 'IID_sd', 'NonIID_mean', 'NonIID_sd'])
+        for c in range(nc):
+            name = CIFAR_NAMES[c] if args.dataset == 'cifar' else str(c)
+            w.writerow([c, name] + [f'{v[c]:.2f}' for _, m, sd in rows for v in (m, sd)])
+    print(f'\nクラスごとの精度のグラフを保存しました: {png_cls}')
+    print(f'クラスごとの精度の数値を保存しました:   {csv_cls}')
+
+# ---- コサイン類似度と選ばれた回数の表 ----
+if has_cos:
+    table_dir = f'./save/tables_{tag}'
+    os.makedirs(table_dir, exist_ok=True)
+    try:
+        import openpyxl
+        from openpyxl.styles import PatternFill, Font, Alignment
+    except ImportError:
+        openpyxl = None
+        print('\n※ openpyxl が無いので、色付きの Excel ファイルは作りません（CSV は作ります）。'
+              '\n  欲しい場合は pip install openpyxl を実行してください。')
+
+    for iid, label, color in CONDITIONS:
+        fname = label.replace('-', '')                 # IID / NonIID
+        user_classes = data[label]['raw'][0][6]
+        clients = sorted(user_classes)
+        col_names = [f'client{u} [{fmt_range(user_classes[u])}]' for u in clients]
+        wb = openpyxl.Workbook() if openpyxl else None
+        if wb:
+            wb.remove(wb.active)
+        count = {u: [] for u in clients}               # シードごとの選ばれた回数
+        cos_all = {u: [] for u in clients}             # 全ラウンドのコサイン類似度
+        cos_sel = {u: [] for u in clients}             # 選ばれたときのコサイン類似度
+
+        for seed, raw in zip(data[label]['seeds'], data[label]['raw']):
+            selected_hist, cos_hist = raw[3], raw[4]
+            # 1) 毎ラウンドのコサイン類似度（CSV）
+            path = os.path.join(table_dir, f'cos_{fname}_seed{seed}.csv')
+            with open(path, 'w', newline='', encoding='utf-8-sig') as f:
+                w = csv.writer(f)
+                w.writerow(['round'] + col_names + ['selected'])
+                for rd, (cos_r, sel) in enumerate(zip(cos_hist, selected_hist), 1):
+                    w.writerow([rd] + [f'{cos_r[u]:.4f}' if u in cos_r else '' for u in clients]
+                               + [' '.join(map(str, sel))])
+            for u in clients:
+                count[u].append(sum(u in sel for sel in selected_hist))
+                for cos_r, sel in zip(cos_hist, selected_hist):
+                    if u in cos_r:
+                        cos_all[u].append(cos_r[u])
+                        if u in sel:
+                            cos_sel[u].append(cos_r[u])
+            # 2) 同じ表を Excel に（選ばれた値に色と太字を付ける）
+            if wb:
+                ws = wb.create_sheet(f'seed{seed}')
+                ws.append(['round'] + col_names + ['selected'])
+                hl = PatternFill('solid', fgColor='FBD5C4')
+                for rd, (cos_r, sel) in enumerate(zip(cos_hist, selected_hist), 1):
+                    ws.append([rd] + [round(cos_r[u], 4) if u in cos_r else None for u in clients]
+                              + [' '.join(map(str, sel))])
+                    for j, u in enumerate(clients):
+                        if u in sel:
+                            cell = ws.cell(row=rd + 1, column=j + 2)
+                            cell.fill = hl
+                            cell.font = Font(bold=True)
+                for cell in ws[1]:
+                    cell.font = Font(bold=True)
+                    cell.alignment = Alignment(wrap_text=True, horizontal='center')
+                ws.freeze_panes = 'B2'
+                for j in range(len(clients) + 2):
+                    ws.column_dimensions[openpyxl.utils.get_column_letter(j + 1)].width = 13
+
+        # 3) 端末ごとの選ばれた回数（全シードまとめ）
+        n_rounds = len(data[label]['raw'][0][3])
+        header = (['client', 'classes'] + [f'seed{s}' for s in data[label]['seeds']]
+                  + ['mean_count', f'select_rate(/{n_rounds})', 'mean_cos', 'mean_cos_when_selected'])
+        summary = []
+        for u in clients:
+            mc = float(np.mean(count[u]))
+            summary.append([u, fmt_range(user_classes[u])] + count[u]
+                           + [round(mc, 2), f'{100 * mc / n_rounds:.1f}%',
+                              round(float(np.mean(cos_all[u])), 4) if cos_all[u] else '',
+                              round(float(np.mean(cos_sel[u])), 4) if cos_sel[u] else ''])
+        path = os.path.join(table_dir, f'selection_count_{fname}.csv')
+        with open(path, 'w', newline='', encoding='utf-8-sig') as f:
+            w = csv.writer(f)
+            w.writerow(header)
+            w.writerows(summary)
+        if wb:
+            ws = wb.create_sheet('selection_count', 0)
+            ws.append(header)
+            for row in summary:
+                ws.append(row)
+            for cell in ws[1]:
+                cell.font = Font(bold=True)
+            for j in range(len(header)):
+                ws.column_dimensions[openpyxl.utils.get_column_letter(j + 1)].width = 14
+            wb.save(os.path.join(table_dir, f'cos_{fname}.xlsx'))
+
+        print(f'\n---------- {label}: 各端末が選ばれた回数（{n_rounds}ラウンド中、シード平均）----------')
+        for row in summary:
+            print(f'  client{row[0]} [{row[1]}]: {row[-4]:5.1f}回 ({row[-3]})  '
+                  f'平均cos {row[-2]}  選ばれたときの平均cos {row[-1]}')
+    print(f'\nコサイン類似度と選ばれた回数の表を保存しました: {table_dir}/')

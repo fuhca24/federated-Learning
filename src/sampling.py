@@ -74,11 +74,64 @@ def pair_noniid(dataset, num_users, num_groups=5):
         for u, part in zip(users, np.array_split(idxs, len(users))):
             dict_users[u] = part
     return dict_users
+
+def split_equal_size(dataset, user_classes):
+    """
+    user_classes = {端末番号: その端末が持つクラスのリスト} に従って画像を配る。
+    ・どの端末も同じ枚数になるようにする
+    ・端末の中では、持っているクラスを同じ枚数ずつにする
+    ・同じ画像を2台に配ることはしない（足りない分に合わせるので、余った画像は使わない）
+    """
+    labels = np.asarray(dataset.targets)
+    holders = {}                                   # クラス → そのクラスを持つ端末のリスト
+    for u, cls in user_classes.items():
+        for c in cls:
+            holders.setdefault(c, []).append(u)
+    # 1台あたりの枚数 T を、どのクラスも足りなくならない最大の値にする
+    # （クラス c は、それを持つ端末 u に T / (u のクラス数) 枚ずつ配るので、その合計が c の枚数以下）
+    T = min(np.sum(labels == c) / sum(1.0 / len(user_classes[u]) for u in us)
+            for c, us in holders.items())
+    T = int(T)
+    parts = {u: [] for u in user_classes}
+    for c, us in sorted(holders.items()):
+        idx = np.where(labels == c)[0]
+        np.random.shuffle(idx)
+        pos = 0
+        for u in us:
+            n = T // len(user_classes[u])          # 端末 u がクラス c から受け取る枚数
+            parts[u].append(idx[pos:pos + n])
+            pos += n
+    # 端末内でクラスが混ざるように並べ替える（LocalUpdate は先頭8割を学習に使う）
+    return {u: np.random.permutation(np.concatenate(parts[u])) for u in user_classes}
+
+def noniid_pattern1(dataset, num_users):
+    """
+    パターン1: 1〜8番目の端末（番号 0〜7）はクラス 0〜4 だけ、
+               最後の2台（10台なら 9,10番目 = 番号 8,9）はクラス 5〜9 だけを持つ。
+    """
+    user_classes = {u: list(range(0, 5)) if u < num_users - 2 else list(range(5, 10))
+                    for u in range(num_users)}
+    print('[non-iid パターン1] 番号0〜{}: クラス0〜4 / 番号{}〜{}: クラス5〜9'
+          .format(num_users - 3, num_users - 2, num_users - 1))
+    return split_equal_size(dataset, user_classes)
+ 
+ 
+def noniid_pattern2(dataset, num_users):
+    """
+    パターン2: 1〜8番目の端末（番号 0〜7）はクラス 0〜4 だけ、
+               最後の2台（10台なら 9,10番目 = 番号 8,9）はクラス 0〜9 すべてを持つ。
+    """
+    user_classes = {u: list(range(0, 5)) if u < num_users - 2 else list(range(0, 10))
+                    for u in range(num_users)}
+    print('[non-iid パターン2] 番号0〜{}: クラス0〜4 / 番号{}〜{}: クラス0〜9'
+          .format(num_users - 3, num_users - 2, num_users - 1))
+    return split_equal_size(dataset, user_classes)
  
  
 def mnist_noniid(dataset, num_users):
-    # non-iid のときは、5ペアの分け方（pair_noniid）を使う
-    return pair_noniid(dataset, num_users)
+    #non-iidを切り替えて
+    return noniid_pattern1(dataset, num_users)
+    # return noniid_pattern2(dataset, num_users)
 
 def mnist_noniid_unequal(dataset, num_users):
     """
