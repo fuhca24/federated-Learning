@@ -130,8 +130,8 @@ def noniid_pattern2(dataset, num_users):
  
 def mnist_noniid(dataset, num_users):
     #non-iidを切り替えて
-    return noniid_pattern1(dataset, num_users)
-    # return noniid_pattern2(dataset, num_users)
+    #return noniid_pattern1(dataset, num_users)
+    return noniid_pattern2(dataset, num_users)
 
 def mnist_noniid_unequal(dataset, num_users):
     """
